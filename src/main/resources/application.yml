@@ -1,0 +1,6 @@
+configuration:
+  swagger:
+    app: 'Card-Shard'
+    description: 'TCG collection organizer'
+    developer: 'Samir Sadikovic'
+    email: 'samir.sadikovic.bih@gmail.com'
