@@ -20,7 +20,7 @@ public class CardService {
         return cardRepository.findAll();
     }
 
-    public Card getCardById(int id) {
+    public Card getCardById(String id) {
         Optional<Card> card = cardRepository.findById(id);
         if (card.isEmpty())
             throw new ResourceNotFoundException("The card with the given ID does not exist.");

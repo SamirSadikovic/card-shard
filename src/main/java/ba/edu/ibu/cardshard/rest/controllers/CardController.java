@@ -22,7 +22,7 @@ public class CardController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
-    public ResponseEntity<Card> getCardById(@PathVariable int id) {
+    public ResponseEntity<Card> getCardById(@PathVariable String id) {
         return ResponseEntity.ok(cardService.getCardById(id));
     }
 }

@@ -1,29 +1,17 @@
 package ba.edu.ibu.cardshard.core.model;
 
-import ba.edu.ibu.cardshard.core.model.card.Card;
+import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
+@Component
 public class Tag {
-
-    private final int id;
-    private final int userId;
     private String name;
-    private ArrayList<Card> cards;
+    private HashSet<String> cardIds;
 
-    public Tag(int id, int userId, String name, ArrayList<Card> cards) {
-        this.id = id;
-        this.userId = userId;
+    public Tag(String name, HashSet<String> cardIds) {
         this.name = name;
-        this.cards = cards;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public int getUserId() {
-        return userId;
+        this.cardIds = cardIds;
     }
 
     public String getName() {
@@ -34,23 +22,30 @@ public class Tag {
         this.name = name;
     }
 
-    public ArrayList<Card> getCards() {
-        return cards;
+    public HashSet<String> getCardIds() {
+        return cardIds;
     }
 
-    public void addCard(Card card) {
-        this.cards.add(card);
+    public void setCardIds(HashSet<String> cardIds) {
+        this.cardIds = cardIds;
     }
 
-    public void setCards(ArrayList<Card> cards) {
-        this.cards = cards;
+    public void addCard(String cardId) {
+        this.cardIds.add(cardId);
     }
 
-    public int getQuantity(Card card) {
-        int quantity = 0;
-        for (Card taggedCard : this.cards)
-            if (card.getId() == taggedCard.getId() && card.getSetCode().equals(taggedCard.getSetCode()))
-                quantity++;
-        return quantity;
+    public void removeCard(String cardId) {
+        this.cardIds.remove(cardId);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+
+        if (!(o instanceof Tag c))
+            return false;
+
+        return this.name.equals(c.getName());
     }
 }

@@ -5,4 +5,4 @@ import org.springframework.stereotype.Repository;
 import ba.edu.ibu.cardshard.core.model.card.Card;
 
 @Repository
-public interface CardRepository extends MongoRepository<Card, Integer> { }
+public interface CardRepository extends MongoRepository<Card, String> { }

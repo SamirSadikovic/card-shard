@@ -1,5 +1,6 @@
 package ba.edu.ibu.cardshard.core.model.card;
 
+import ba.edu.ibu.cardshard.core.model.Tag;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,7 +10,7 @@ import java.lang.annotation.Inherited;
 public abstract class Card {
 
     @Id
-    protected final int id;
+    protected final String id;
     protected final String name;
     protected final String type;
     protected final String desc;
@@ -17,7 +18,7 @@ public abstract class Card {
     protected final String setCode;
     protected final String setPrice;
 
-    public Card(int id, String name, String type, String desc, String race, String setCode, String setPrice) {
+    public Card(String id, String name, String type, String desc, String race, String setCode, String setPrice) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -27,7 +28,7 @@ public abstract class Card {
         this.setPrice = setPrice;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -53,5 +54,16 @@ public abstract class Card {
 
     public String getSetPrice() {
         return setPrice;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+
+        if (!(o instanceof Card c))
+            return false;
+
+        return this.id.equals(c.getId());
     }
 }
