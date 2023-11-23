@@ -9,7 +9,6 @@ import java.util.List;
 
 @Repository
 public class CardRepository {
-
     private List<Card> cards;
 
     public CardRepository(){

@@ -9,7 +9,6 @@ import java.util.List;
 
 @Service
 public class CardService {
-
     private final CardRepository cardRepository;
 
     public CardService(CardRepository cardRepository) {
