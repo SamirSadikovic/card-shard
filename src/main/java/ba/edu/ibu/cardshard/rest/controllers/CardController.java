@@ -2,10 +2,8 @@ package ba.edu.ibu.cardshard.rest.controllers;
 
 import ba.edu.ibu.cardshard.core.model.card.Card;
 import ba.edu.ibu.cardshard.core.service.CardService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,13 +16,13 @@ public class CardController {
         this.cardService = cardService;
     }
 
-    @GetMapping
-    public List<Card> findAll() {
-        return this.cardService.findAll();
+    @RequestMapping(method = RequestMethod.GET, path = "/")
+    public ResponseEntity<List<Card>> getCards() {
+        return ResponseEntity.ok(cardService.getCards());
     }
 
-    @GetMapping("/{id}")
-    public Card findById(@PathVariable int id) {
-        return this.cardService.findById(id);
+    @RequestMapping(method = RequestMethod.GET, path = "/{id}")
+    public ResponseEntity<Card> getCardById(@PathVariable int id) {
+        return ResponseEntity.ok(cardService.getCardById(id));
     }
 }

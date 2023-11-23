@@ -1,29 +1,9 @@
 package ba.edu.ibu.cardshard.core.repository;
 
-import ba.edu.ibu.cardshard.core.model.User;
 import ba.edu.ibu.cardshard.core.model.card.Card;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import ba.edu.ibu.cardshard.core.model.User;
 
 @Repository
-public class UserRepository {
-    private List<User> users;
-
-    public UserRepository(){
-        this.users = Arrays.asList(
-                new User("1", "Samir", "Sadikovic", "samir.sadikovic@stu.ibu.edu.ba", "BiH", "Tuzla", new ArrayList<Card>()),
-                new User("2", "Other", "User", "other.user@somewhere.com", "BiH", "Sarajevo", new ArrayList<Card>())
-        );
-    }
-
-    public List<User> findAll() {
-        return this.users;
-    }
-
-    public User findById(String id){
-        return users.stream().filter(card -> card.getId().equals(id)).findFirst().orElse(null);
-    }
-}
+public interface UserRepository extends MongoRepository<User, String> { }

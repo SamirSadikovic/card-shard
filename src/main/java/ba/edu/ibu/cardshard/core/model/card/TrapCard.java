@@ -1,5 +1,8 @@
 package ba.edu.ibu.cardshard.core.model.card;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "cards")
 public class TrapCard extends Card{
 
     public TrapCard(int id, String name, String type, String desc, String race, String setCode, String setPrice) {

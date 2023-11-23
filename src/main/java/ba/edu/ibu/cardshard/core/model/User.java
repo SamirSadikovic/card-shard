@@ -1,11 +1,13 @@
 package ba.edu.ibu.cardshard.core.model;
 
 import ba.edu.ibu.cardshard.core.model.card.Card;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
-
+@Document
 public class User {
-
+    @Id
     private final String id;
     private String firstName;
     private String lastName;

@@ -2,10 +2,8 @@ package ba.edu.ibu.cardshard.rest.controllers;
 
 import ba.edu.ibu.cardshard.core.model.User;
 import ba.edu.ibu.cardshard.core.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,13 +16,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping
-    public List<User> findAll() {
-        return this.userService.findAll();
+    @RequestMapping(method = RequestMethod.GET, path = "/")
+    public ResponseEntity<List<User>> getUsers() {
+        return ResponseEntity.ok(userService.getUsers());
     }
 
-    @GetMapping("/{id}")
-    public User findById(@PathVariable String id) {
-        return this.userService.findById(id);
+    @RequestMapping(method = RequestMethod.GET, path = "/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable String id) {
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 }

@@ -1,7 +1,14 @@
 package ba.edu.ibu.cardshard.core.model.card;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.lang.annotation.Inherited;
+
+@Document(collection = "cards")
 public abstract class Card {
 
+    @Id
     protected final int id;
     protected final String name;
     protected final String type;

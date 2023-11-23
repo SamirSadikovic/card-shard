@@ -1,21 +1,24 @@
 package ba.edu.ibu.cardshard.core.model.card;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "cards")
 public class LinkMonsterCard extends MonsterCard {
 
-    private final int linkval;
-    private final String[] linkmarkers;
+    private final int linkVal;
+    private final String[] linkMarkers;
 
-    public LinkMonsterCard(int id, String name, String type, String desc, String race, String setCode, String setPrice, int atk, String attribute, int linkval, String[] linkmarkers) {
+    public LinkMonsterCard(int id, String name, String type, String desc, String race, String setCode, String setPrice, int atk, String attribute, int linkVal, String[] linkMarkers) {
         super(id, name, type, desc, race, setCode, setPrice, atk, attribute);
-        this.linkval = linkval;
-        this.linkmarkers = linkmarkers;
+        this.linkVal = linkVal;
+        this.linkMarkers = linkMarkers;
     }
 
-    public int getLinkval() {
-        return linkval;
+    public int getLinkVal() {
+        return linkVal;
     }
 
-    public String[] getLinkmarkers() {
-        return linkmarkers;
+    public String[] getLinkMarkers() {
+        return linkMarkers;
     }
 }

@@ -1,5 +1,8 @@
 package ba.edu.ibu.cardshard.core.model.card;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "cards")
 abstract class MonsterCard extends Card{
 
     protected final int atk;

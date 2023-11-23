@@ -4,3 +4,8 @@ configuration:
     description: 'TCG collection organizer'
     developer: 'Samir Sadikovic'
     email: 'samir.sadikovic.bih@gmail.com'
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://samirsadikovic:cs-ss-dba1@card-shard.cc4qwrd.mongodb.net/?retryWrites=true&w=majority
+      database: card-shard

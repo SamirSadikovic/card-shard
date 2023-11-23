@@ -1,5 +1,8 @@
 package ba.edu.ibu.cardshard.core.model.card;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "cards")
 public class PendulumMonsterCard extends RegularMonsterCard {
 
     private final int scale;
