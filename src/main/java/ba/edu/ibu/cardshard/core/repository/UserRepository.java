@@ -14,8 +14,8 @@ public class UserRepository {
 
     public UserRepository(){
         this.users = Arrays.asList(
-                new User("1", "Samir", "Sadikovic", "BiH", "Tuzla", new ArrayList<Card>()),
-                new User("2", "Other", "User", "BiH", "Sarajevo", new ArrayList<Card>())
+                new User("1", "Samir", "Sadikovic", "samir.sadikovic@stu.ibu.edu.ba", "BiH", "Tuzla", new ArrayList<Card>()),
+                new User("2", "Other", "User", "other.user@somewhere.com", "BiH", "Sarajevo", new ArrayList<Card>())
         );
     }
 
