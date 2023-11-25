@@ -8,12 +8,12 @@ public class Tag {
     private String name;
     private HashSet<Integer> cards;
 
+    public Tag() { }
+
     public Tag(String name, HashSet<Integer> cards) {
         this.name = name;
         this.cards = cards;
     }
-
-    public Tag() { }
 
     public String getName() {
         return name;

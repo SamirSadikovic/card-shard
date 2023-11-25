@@ -43,25 +43,25 @@ public class CollectionController {
         return ResponseEntity.ok(collectionService.getCollectionByUserId(userId));
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/tags/{id}")
-    public ResponseEntity<HashSet<Tag>> getTagsById(@PathVariable String id) {
-        return ResponseEntity.ok(collectionService.getTagsById(id));
-    }
-
-    @RequestMapping(method = RequestMethod.GET, path = "/tags/user/{userId}")
-    public ResponseEntity<HashSet<Tag>> getTagsByUserId(@PathVariable String userId) {
-        return ResponseEntity.ok(collectionService.getTagsByUserId(userId));
-    }
-
-    @RequestMapping(method = RequestMethod.GET, path = "/collection-size/{id}")
-    public ResponseEntity<Integer> getCollectionSize(@PathVariable String id) {
-        return ResponseEntity.ok(collectionService.getCollectionSize(id));
-    }
-
-    @RequestMapping(method = RequestMethod.GET, path = "/card-quantities")
-    public ResponseEntity<Map<String, Integer>> getCardQuantities() {
-        return ResponseEntity.ok(collectionService.getCardQuantities());
-    }
+//    @RequestMapping(method = RequestMethod.GET, path = "/tags/{id}")
+//    public ResponseEntity<HashSet<Tag>> getTagsById(@PathVariable String id) {
+//        return ResponseEntity.ok(collectionService.getTagsById(id));
+//    }
+//
+//    @RequestMapping(method = RequestMethod.GET, path = "/tags/user/{userId}")
+//    public ResponseEntity<HashSet<Tag>> getTagsByUserId(@PathVariable String userId) {
+//        return ResponseEntity.ok(collectionService.getTagsByUserId(userId));
+//    }
+//
+//    @RequestMapping(method = RequestMethod.GET, path = "/collection-size/{id}")
+//    public ResponseEntity<Integer> getCollectionSize(@PathVariable String id) {
+//        return ResponseEntity.ok(collectionService.getCollectionSize(id));
+//    }
+//
+//    @RequestMapping(method = RequestMethod.GET, path = "/card-quantities")
+//    public ResponseEntity<Map<String, Integer>> getCardQuantities() {
+//        return ResponseEntity.ok(collectionService.getCardQuantities());
+//    }
 
     @RequestMapping(method = RequestMethod.POST, path = "/create")
     public ResponseEntity<CollectionDTO> register(@RequestBody CollectionRequestDTO collection) {
