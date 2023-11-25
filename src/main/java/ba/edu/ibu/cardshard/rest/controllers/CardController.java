@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/*
+    TODO:
+     Add endpoints for filtering
+ */
+
 @RestController
 @RequestMapping("api/cards")
 public class CardController {

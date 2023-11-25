@@ -22,7 +22,6 @@ public class UserService {
 
     public List<UserDTO> getUsers() {
         List<User> users = userRepository.findAll();
-        // List<User> users = userRepository.findAllCustom();
 
         return users
                 .stream()

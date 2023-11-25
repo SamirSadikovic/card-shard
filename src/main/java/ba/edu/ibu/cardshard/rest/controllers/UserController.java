@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/*
+    TODO:
+     Add endpoints for update and filtering
+ */
+
 @RestController
 @RequestMapping("api/users")
 public class UserController {

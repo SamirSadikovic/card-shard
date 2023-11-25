@@ -10,6 +10,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+/*
+    TODO:
+     Revise endpoints that return tags and counts
+ */
+
 @RestController
 @RequestMapping("api/collections")
 public class CollectionController {
