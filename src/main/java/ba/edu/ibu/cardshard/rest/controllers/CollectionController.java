@@ -1,8 +1,8 @@
 package ba.edu.ibu.cardshard.rest.controllers;
 
-import ba.edu.ibu.cardshard.core.model.Collection;
 import ba.edu.ibu.cardshard.core.model.Tag;
 import ba.edu.ibu.cardshard.core.service.CollectionService;
+import ba.edu.ibu.cardshard.rest.dto.CollectionDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,17 +20,17 @@ public class CollectionController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/")
-    public ResponseEntity<List<Collection>> getCollections() {
+    public ResponseEntity<List<CollectionDTO>> getCollections() {
         return ResponseEntity.ok(collectionService.getCollections());
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
-    public ResponseEntity<Collection> getCollectionById(@PathVariable String id) {
+    public ResponseEntity<CollectionDTO> getCollectionById(@PathVariable String id) {
         return ResponseEntity.ok(collectionService.getCollectionById(id));
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/user/{userId}")
-    public ResponseEntity<Collection> getCollectionByUserId(@PathVariable String userId) {
+    public ResponseEntity<CollectionDTO> getCollectionByUserId(@PathVariable String userId) {
         return ResponseEntity.ok(collectionService.getCollectionByUserId(userId));
     }
 

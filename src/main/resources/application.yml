@@ -7,5 +7,5 @@ configuration:
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://samirsadikovic:cs-ss-dba1@card-shard.cc4qwrd.mongodb.net/?retryWrites=true&w=majority
+      uri: mongodb+srv://samirsadikovic:ss-cs-dba-1@card-shard.cc4qwrd.mongodb.net/?retryWrites=true&w=majority
       database: card-shard

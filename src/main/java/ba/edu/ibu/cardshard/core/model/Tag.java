@@ -4,15 +4,16 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 
-@Component
 public class Tag {
     private String name;
-    private HashSet<String> cardIds;
+    private HashSet<Integer> cards;
 
-    public Tag(String name, HashSet<String> cardIds) {
+    public Tag(String name, HashSet<Integer> cards) {
         this.name = name;
-        this.cardIds = cardIds;
+        this.cards = cards;
     }
+
+    public Tag() { }
 
     public String getName() {
         return name;
@@ -22,20 +23,20 @@ public class Tag {
         this.name = name;
     }
 
-    public HashSet<String> getCardIds() {
-        return cardIds;
+    public HashSet<Integer> getCards() {
+        return cards;
     }
 
-    public void setCardIds(HashSet<String> cardIds) {
-        this.cardIds = cardIds;
+    public void setCards(HashSet<Integer> cards) {
+        this.cards = cards;
     }
 
-    public void addCard(String cardId) {
-        this.cardIds.add(cardId);
+    public void addCard(int card) {
+        this.cards.add(card);
     }
 
-    public void removeCard(String cardId) {
-        this.cardIds.remove(cardId);
+    public void removeCard(int card) {
+        this.cards.remove(card);
     }
 
     @Override
@@ -43,9 +44,9 @@ public class Tag {
         if (o == this)
             return true;
 
-        if (!(o instanceof Tag c))
+        if (!(o instanceof Tag t))
             return false;
 
-        return this.name.equals(c.getName());
+        return this.name.equals(t.getName());
     }
 }

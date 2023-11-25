@@ -27,9 +27,4 @@ public interface CollectionRepository extends MongoRepository<Collection, String
         { $unwind: '$cards' }, { $group: { _id: '$cards.id', count: { $sum: 1 } } } }
     """)
     Optional<Map<String, Integer>> getCardQuantities();
-
-    /*
-    TODO:
-        Add addition methods in all services
-     */
 }

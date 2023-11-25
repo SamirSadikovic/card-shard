@@ -1,6 +1,5 @@
 package ba.edu.ibu.cardshard.core.model;
 
-import ba.edu.ibu.cardshard.core.model.card.Card;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -11,21 +10,25 @@ import java.util.HashSet;
 @Document
 public class Collection {
     @Id
-    private final String id;
+    private String id;
     private String userId;
-    private ArrayList<Card> collectedCards;
+    private ArrayList<CollectedCard> cards;
     private HashSet<Tag> tags;
 
-    @Autowired
-    public Collection(String id, String userId, ArrayList<Card> collectedCards, HashSet<Tag> tags) {
+    public Collection() { }
+    public Collection(String id, String userId, ArrayList<CollectedCard> cards, HashSet<Tag> tags) {
         this.id = id;
         this.userId = userId;
-        this.collectedCards = collectedCards;
+        this.cards = cards;
         this.tags = tags;
     }
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUserId() {
@@ -36,23 +39,23 @@ public class Collection {
         this.userId = userId;
     }
 
-    public ArrayList<Card> getCollectedCards() {
-        return collectedCards;
+    public ArrayList<CollectedCard> getCards() {
+        return cards;
     }
 
-    public void setCollectedCards(ArrayList<Card> collectedCards) {
-        this.collectedCards = collectedCards;
+    public void setCards(ArrayList<CollectedCard> cards) {
+        this.cards = cards;
     }
 
-    public void addCard(Card card) {
-        this.collectedCards.add(card);
+    public void addCard(CollectedCard card) {
+        this.cards.add(card);
     }
 
-    public void removeCard(Card card) {
-        this.collectedCards.remove(card);
+    public void removeCard(CollectedCard card) {
+        this.cards.remove(card);
     }
 
-    public int getCollectionSize() { return this.collectedCards.size(); }
+    public int getCollectionSize() { return this.cards.size(); }
 
     public HashSet<Tag> getTags() {
         return tags;

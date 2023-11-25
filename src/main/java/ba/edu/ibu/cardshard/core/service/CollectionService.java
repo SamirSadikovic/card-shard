@@ -5,12 +5,15 @@ import ba.edu.ibu.cardshard.core.exceptions.repository.ResourceNotFoundException
 import ba.edu.ibu.cardshard.core.model.Collection;
 import ba.edu.ibu.cardshard.core.model.Tag;
 import ba.edu.ibu.cardshard.core.repository.CollectionRepository;
+import ba.edu.ibu.cardshard.rest.dto.CollectionDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class CollectionService {
@@ -20,22 +23,27 @@ public class CollectionService {
         this.collectionRepository = collectionRepository;
     }
 
-    public List<Collection> getCollections() {
-        return collectionRepository.findAll();
+    public List<CollectionDTO> getCollections() {
+        List<Collection> collections = collectionRepository.findAll();
+
+        return collections
+                .stream()
+                .map(CollectionDTO::new)
+                .collect(toList());
     }
 
-    public Collection getCollectionById(String id) {
+    public CollectionDTO getCollectionById(String id) {
         Optional<Collection> collection = collectionRepository.findById(id);
         if (collection.isEmpty())
             throw new ResourceNotFoundException("The collection with the given ID does not exist.");
-        return collection.get();
+        return new CollectionDTO(collection.get());
     }
 
-    public Collection getCollectionByUserId(String userId) {
+    public CollectionDTO getCollectionByUserId(String userId) {
         Optional<Collection> collection = collectionRepository.findByUserId(userId);
         if (collection.isEmpty())
             throw new ResourceNotFoundException("The collection with the given user ID does not exist.");
-        return collection.get();
+        return new CollectionDTO(collection.get());
     }
 
     public HashSet<Tag> getTagsById(String id) {

@@ -1,12 +1,15 @@
 package ba.edu.ibu.cardshard.core.service;
 
 import ba.edu.ibu.cardshard.core.exceptions.repository.ResourceNotFoundException;
-import ba.edu.ibu.cardshard.core.model.card.Card;
+import ba.edu.ibu.cardshard.core.model.Card;
 import ba.edu.ibu.cardshard.core.repository.CardRepository;
+import ba.edu.ibu.cardshard.rest.dto.CardDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class CardService {
@@ -16,14 +19,19 @@ public class CardService {
         this.cardRepository = cardRepository;
     }
 
-    public List<Card> getCards() {
-        return cardRepository.findAll();
+    public List<CardDTO> getCards() {
+        List<Card> cards = cardRepository.findAll();
+
+        return cards
+                .stream()
+                .map(CardDTO::new)
+                .collect(toList());
     }
 
-    public Card getCardById(String id) {
+    public CardDTO getCardById(int id) {
         Optional<Card> card = cardRepository.findById(id);
         if (card.isEmpty())
             throw new ResourceNotFoundException("The card with the given ID does not exist.");
-        return card.get();
+        return new CardDTO(card.get());
     }
 }

@@ -1,7 +1,8 @@
 package ba.edu.ibu.cardshard.rest.controllers;
 
-import ba.edu.ibu.cardshard.core.model.card.Card;
+import ba.edu.ibu.cardshard.core.model.Card;
 import ba.edu.ibu.cardshard.core.service.CardService;
+import ba.edu.ibu.cardshard.rest.dto.CardDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,12 +18,12 @@ public class CardController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/")
-    public ResponseEntity<List<Card>> getCards() {
+    public ResponseEntity<List<CardDTO>> getCards() {
         return ResponseEntity.ok(cardService.getCards());
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
-    public ResponseEntity<Card> getCardById(@PathVariable String id) {
+    public ResponseEntity<CardDTO> getCardById(@PathVariable int id) {
         return ResponseEntity.ok(cardService.getCardById(id));
     }
 }
