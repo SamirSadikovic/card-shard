@@ -3,6 +3,10 @@ package ba.edu.ibu.cardshard.rest.controllers;
 import ba.edu.ibu.cardshard.core.model.Tag;
 import ba.edu.ibu.cardshard.core.service.CollectionService;
 import ba.edu.ibu.cardshard.rest.dto.CollectionDTO;
+import ba.edu.ibu.cardshard.rest.dto.CollectionRequestDTO;
+import ba.edu.ibu.cardshard.rest.dto.UserDTO;
+import ba.edu.ibu.cardshard.rest.dto.UserRequestDTO;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,5 +61,21 @@ public class CollectionController {
     @RequestMapping(method = RequestMethod.GET, path = "/card-quantities")
     public ResponseEntity<Map<String, Integer>> getCardQuantities() {
         return ResponseEntity.ok(collectionService.getCardQuantities());
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/create")
+    public ResponseEntity<CollectionDTO> register(@RequestBody CollectionRequestDTO collection) {
+        return ResponseEntity.ok(collectionService.addCollection(collection));
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, path = "/{id}")
+    public ResponseEntity<CollectionDTO> updateCollection(@PathVariable String id, @RequestBody CollectionRequestDTO collection) {
+        return ResponseEntity.ok(collectionService.updateCollection(id, collection));
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
+    public ResponseEntity<Void> deleteCollection(@PathVariable String id) {
+        collectionService.deleteCollection(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

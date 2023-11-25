@@ -4,8 +4,12 @@ import ba.edu.ibu.cardshard.core.exceptions.general.BadRequestException;
 import ba.edu.ibu.cardshard.core.exceptions.repository.ResourceNotFoundException;
 import ba.edu.ibu.cardshard.core.model.Collection;
 import ba.edu.ibu.cardshard.core.model.Tag;
+import ba.edu.ibu.cardshard.core.model.User;
 import ba.edu.ibu.cardshard.core.repository.CollectionRepository;
 import ba.edu.ibu.cardshard.rest.dto.CollectionDTO;
+import ba.edu.ibu.cardshard.rest.dto.CollectionRequestDTO;
+import ba.edu.ibu.cardshard.rest.dto.UserDTO;
+import ba.edu.ibu.cardshard.rest.dto.UserRequestDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -72,5 +76,26 @@ public class CollectionService {
         if (cardQuantities.isEmpty())
             throw new BadRequestException("Error during counting.");
         return cardQuantities.get();
+    }
+
+    public CollectionDTO addCollection(CollectionRequestDTO payload) {
+        Collection collection = collectionRepository.save(payload.toEntity());
+        return new CollectionDTO(collection);
+    }
+
+    public CollectionDTO updateCollection(String id, CollectionRequestDTO payload) {
+        Optional<Collection> collection = collectionRepository.findById(id);
+        if (collection.isEmpty()) {
+            throw new ResourceNotFoundException("The collection with the given ID does not exist.");
+        }
+        Collection updatedCollection = payload.toEntity();
+        updatedCollection.setId(collection.get().getId());
+        updatedCollection = collectionRepository.save(updatedCollection);
+        return new CollectionDTO(updatedCollection);
+    }
+
+    public void deleteCollection(String id) {
+        Optional<Collection> collection = collectionRepository.findById(id);
+        collection.ifPresent(collectionRepository::delete);
     }
 }

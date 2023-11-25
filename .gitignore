@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+## Local card images ##
+/src/main/resources/card_images/
