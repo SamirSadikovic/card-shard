@@ -3,15 +3,15 @@ package ba.edu.ibu.cardshard.core.model;
 public class CollectedCard {
     private int id;
     private String setCode;
+    private Boolean sellTrade;
 
-    public CollectedCard(int id, String setCode) {
+    public CollectedCard(int id, String setCode, Boolean sellTrade) {
         this.id = id;
         this.setCode = setCode;
+        this.sellTrade = sellTrade;
     }
 
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
 
     public void setId(int id) {
         this.id = id;
@@ -23,6 +23,14 @@ public class CollectedCard {
 
     public void setSetCode(String setCode) {
         this.setCode = setCode;
+    }
+
+    public Boolean getSellTrade() {
+        return sellTrade;
+    }
+
+    public void setSellTrade(Boolean sellTrade) {
+        this.sellTrade = sellTrade;
     }
 
     @Override

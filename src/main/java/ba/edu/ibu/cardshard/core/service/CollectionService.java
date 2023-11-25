@@ -4,12 +4,9 @@ import ba.edu.ibu.cardshard.core.exceptions.general.BadRequestException;
 import ba.edu.ibu.cardshard.core.exceptions.repository.ResourceNotFoundException;
 import ba.edu.ibu.cardshard.core.model.Collection;
 import ba.edu.ibu.cardshard.core.model.Tag;
-import ba.edu.ibu.cardshard.core.model.User;
 import ba.edu.ibu.cardshard.core.repository.CollectionRepository;
 import ba.edu.ibu.cardshard.rest.dto.CollectionDTO;
 import ba.edu.ibu.cardshard.rest.dto.CollectionRequestDTO;
-import ba.edu.ibu.cardshard.rest.dto.UserDTO;
-import ba.edu.ibu.cardshard.rest.dto.UserRequestDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;

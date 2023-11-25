@@ -1,12 +1,18 @@
 package ba.edu.ibu.cardshard.core.model;
 
+import ba.edu.ibu.cardshard.core.model.enums.UserType;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Document
-public class User {
+public class User implements UserDetails {
     @Id
     private String id;
     private String firstName;
@@ -17,10 +23,11 @@ public class User {
     private String country;
     private String city;
     private Date creationDate;
+    private UserType userType;
 
     public User(){ }
 
-    public User(String id, String firstName, String lastName, String email, String username, String password, String country, String city, Date creationDate) {
+    public User(String id, String firstName, String lastName, String email, String username, String password, String country, String city, Date creationDate, UserType userType) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -30,6 +37,7 @@ public class User {
         this.country = country;
         this.city = city;
         this.creationDate = creationDate;
+        this.userType = userType;
     }
 
     public String getId() {
@@ -100,5 +108,38 @@ public class User {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(userType.name()));
     }
 }

@@ -6,6 +6,7 @@ import ba.edu.ibu.cardshard.rest.dto.CollectionDTO;
 import ba.edu.ibu.cardshard.rest.dto.CollectionRequestDTO;
 import ba.edu.ibu.cardshard.rest.dto.UserDTO;
 import ba.edu.ibu.cardshard.rest.dto.UserRequestDTO;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +17,14 @@ import java.util.Map;
 
 /*
     TODO:
+     Implement collection privacy
+     Add trade binder functionality
      Revise endpoints that return tags and counts
  */
 
 @RestController
 @RequestMapping("api/collections")
+@SecurityRequirement(name = "JWT Security")
 public class CollectionController {
     private final CollectionService collectionService;
 

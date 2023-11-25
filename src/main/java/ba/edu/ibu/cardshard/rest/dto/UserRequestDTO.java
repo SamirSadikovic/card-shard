@@ -1,6 +1,7 @@
 package ba.edu.ibu.cardshard.rest.dto;
 
 import ba.edu.ibu.cardshard.core.model.User;
+import ba.edu.ibu.cardshard.core.model.enums.UserType;
 
 import java.util.Date;
 
@@ -12,6 +13,7 @@ public class UserRequestDTO {
     private String password;
     private String country;
     private String city;
+    private UserType userType;
 
     public  UserRequestDTO() { }
 
@@ -23,6 +25,7 @@ public class UserRequestDTO {
         this.password = user.getPassword();
         this.country = user.getCountry();
         this.city = user.getCity();
+        this.userType = user.getUserType();
     }
 
     public User toEntity() {
@@ -34,6 +37,7 @@ public class UserRequestDTO {
         user.setPassword(password);
         user.setCountry(country);
         user.setCity(city);
+        user.setUserType(userType);
         user.setCreationDate(new Date());
         return user;
     }

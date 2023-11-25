@@ -15,12 +15,12 @@ public class DeckRequestDTO {
 
     public DeckRequestDTO(){ }
     
-    public DeckRequestDTO(String userId, String name, ArrayList<Integer> main, ArrayList<Integer> extra, ArrayList<Integer> side) {
-        this.userId = userId;
-        this.name = name;
-        this.main = main;
-        this.extra = extra;
-        this.side = side;
+    public DeckRequestDTO(Deck deck) {
+        this.userId = deck.getUserId();
+        this.name = deck.getName();
+        this.main = deck.getMain();
+        this.extra = deck.getExtra();
+        this.side = deck.getSide();
     }
 
     public Deck toEntity() {

@@ -8,7 +8,6 @@ import java.util.HashMap;
 
 @Document
 public class Card {
-
     @Id
     private int id;
     private String name;
