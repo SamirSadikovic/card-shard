@@ -1,9 +1,11 @@
 package ba.edu.ibu.cardshard.rest.controllers;
 
 import ba.edu.ibu.cardshard.core.model.User;
+import ba.edu.ibu.cardshard.core.service.JwtService;
 import ba.edu.ibu.cardshard.core.service.UserService;
+import ba.edu.ibu.cardshard.rest.dto.UserDTO;
 import com.jayway.jsonpath.JsonPath;
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class UserControllerTest {
     @MockBean
     UserService userService;
 
+    @MockBean
+    JwtService jwtService;
+
     @Test
     void shouldReturnAllUsers() throws Exception {
 
@@ -35,7 +40,9 @@ public class UserControllerTest {
         user.setCity("Tuzla");
         user.setCountry("Bosnia and Herzegovina");
 
-        Mockito.when(userService.getUsers()).thenReturn(List.of(user));
+        UserDTO userDTO = new UserDTO(user);
+
+        Mockito.when(userService.getUsers()).thenReturn(List.of(userDTO));
 
         MvcResult result = mockMvc.perform(
                 MockMvcRequestBuilders
@@ -44,8 +51,8 @@ public class UserControllerTest {
         ).andReturn();
 
         String response = result.getResponse().getContentAsString();
-        Assertions.assertEquals(1, (Integer) JsonPath.read(response, "$.length()"));
-        Assertions.assertEquals("Samir", JsonPath.read(response, "$.[0].firstName"));
-        Assertions.assertEquals("Sadikovic", JsonPath.read(response, "$.[0].lastName"));
+        assertEquals(1, (Integer) JsonPath.read(response, "$.length()"));
+        assertEquals("Samir", JsonPath.read(response, "$.[0].firstName"));
+        assertEquals("Sadikovic", JsonPath.read(response, "$.[0].lastName"));
     }
 }

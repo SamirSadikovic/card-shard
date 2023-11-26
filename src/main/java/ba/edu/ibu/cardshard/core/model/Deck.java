@@ -6,7 +6,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.ArrayList;
 import java.util.Date;
 
-@Document
+/*
+    TODO:
+     Create exceptions for deck size limit
+ */
+
+@Document(collection="decks")
 public class Deck {
     @Id
     private String id;
@@ -80,4 +85,27 @@ public class Deck {
     public Date getCreationDate() { return creationDate; }
 
     public void setCreationDate(Date creationDate) { this.creationDate = creationDate; }
+
+    public void addToMain(int cardId) { this.main.add(cardId); }
+
+    public void addToExtra(int cardId) { this.extra.add(cardId); }
+
+    public void addToSide(int cardId) { this.side.add(cardId); }
+
+    public void removeFromMain(int cardId) { this.main.remove(cardId); }
+
+    public void removeFromExtra(int cardId) { this.extra.remove(cardId); }
+
+    public void removeFromSide(int cardId) { this.side.remove(cardId); }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+
+        if (!(o instanceof Deck d))
+            return false;
+
+        return this.id.equals(d.getId());
+    }
 }

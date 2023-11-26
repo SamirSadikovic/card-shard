@@ -12,7 +12,7 @@ import java.util.HashSet;
 public class CollectionRequestDTO {
     private String userId;
     private ArrayList<CollectedCard> cards;
-    private HashSet<Tag> tags;
+    private ArrayList<Tag> tags;
 
     public CollectionRequestDTO() { }
 
@@ -46,11 +46,11 @@ public class CollectionRequestDTO {
         this.cards = cards;
     }
 
-    public HashSet<Tag> getTags() {
+    public ArrayList<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(HashSet<Tag> tags) {
+    public void setTags(ArrayList<Tag> tags) {
         this.tags = tags;
     }
 }

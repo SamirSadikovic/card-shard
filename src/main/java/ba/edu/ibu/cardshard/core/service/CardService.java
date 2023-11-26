@@ -6,6 +6,7 @@ import ba.edu.ibu.cardshard.core.repository.CardRepository;
 import ba.edu.ibu.cardshard.rest.dto.CardDTO;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,5 +34,16 @@ public class CardService {
         if (card.isEmpty())
             throw new ResourceNotFoundException("The card with the given ID does not exist.");
         return new CardDTO(card.get());
+    }
+
+    public List<CardDTO> filterByText(String textPattern) {
+        List<Card> cards = cardRepository.findByNameOrDescLike(textPattern);
+        if (cards.isEmpty()) {
+            throw new ResourceNotFoundException("No cards match the criteria.");
+        }
+        return cards
+                .stream()
+                .map(CardDTO::new)
+                .collect(toList());
     }
 }

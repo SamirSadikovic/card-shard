@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-@Document
+@Document(collection="cards")
 public class Card {
     @Id
     private int id;

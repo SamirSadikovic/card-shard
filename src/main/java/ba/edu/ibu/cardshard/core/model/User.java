@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-@Document
+@Document(collection="users")
 public class User implements UserDetails {
     @Id
     private String id;
@@ -22,12 +22,12 @@ public class User implements UserDetails {
     private String password;
     private String country;
     private String city;
-    private Date creationDate;
     private UserType userType;
+    private Date creationDate;
 
     public User(){ }
 
-    public User(String id, String firstName, String lastName, String email, String username, String password, String country, String city, Date creationDate, UserType userType) {
+    public User(String id, String firstName, String lastName, String email, String username, String password, String country, String city, UserType userType, Date creationDate) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -36,8 +36,8 @@ public class User implements UserDetails {
         this.password = password;
         this.country = country;
         this.city = city;
-        this.creationDate = creationDate;
         this.userType = userType;
+        this.creationDate = creationDate;
     }
 
     public String getId() {
@@ -116,6 +116,17 @@ public class User implements UserDetails {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+
+        if (!(o instanceof User u))
+            return false;
+
+        return this.id.equals(u.getId());
     }
 
     @Override

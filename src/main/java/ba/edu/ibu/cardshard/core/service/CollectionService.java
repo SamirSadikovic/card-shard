@@ -47,34 +47,6 @@ public class CollectionService {
         return new CollectionDTO(collection.get());
     }
 
-    public HashSet<Tag> getTagsById(String id) {
-        Optional<HashSet<Tag>> tags = collectionRepository.getTagsById(id);
-        if (tags.isEmpty())
-            throw new ResourceNotFoundException("Tags with the given collection ID do not exist.");
-        return tags.get();
-    }
-
-    public HashSet<Tag> getTagsByUserId(String id) {
-        Optional<HashSet<Tag>> tags = collectionRepository.getTagsByUserId(id);
-        if (tags.isEmpty())
-            throw new ResourceNotFoundException("Tags with the given user ID do not exist.");
-        return tags.get();
-    }
-
-    public int getCollectionSize(String id) {
-        Optional<Collection> collection = collectionRepository.findById(id);
-        if (collection.isEmpty())
-            throw new ResourceNotFoundException("The collection with the given ID does not exist.");
-        return collection.get().getCollectionSize();
-    }
-
-    public Map<String, Integer> getCardQuantities() {
-        Optional<Map<String, Integer>> cardQuantities = collectionRepository.getCardQuantities();
-        if (cardQuantities.isEmpty())
-            throw new BadRequestException("Error during counting.");
-        return cardQuantities.get();
-    }
-
     public CollectionDTO addCollection(CollectionRequestDTO payload) {
         Collection collection = collectionRepository.save(payload.toEntity());
         return new CollectionDTO(collection);

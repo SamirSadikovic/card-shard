@@ -1,6 +1,5 @@
 package ba.edu.ibu.cardshard.rest.controllers;
 
-import ba.edu.ibu.cardshard.core.model.Card;
 import ba.edu.ibu.cardshard.core.service.CardService;
 import ba.edu.ibu.cardshard.rest.dto.CardDTO;
 import org.springframework.http.ResponseEntity;
@@ -30,5 +29,10 @@ public class CardController {
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
     public ResponseEntity<CardDTO> getCardById(@PathVariable int id) {
         return ResponseEntity.ok(cardService.getCardById(id));
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/filter")
+    public ResponseEntity<List<CardDTO>> filterCard(@RequestParam String text) {
+        return ResponseEntity.ok(cardService.filterByText(text));
     }
 }

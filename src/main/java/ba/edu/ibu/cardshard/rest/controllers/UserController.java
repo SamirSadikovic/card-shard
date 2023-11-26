@@ -43,7 +43,6 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/register")
-    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<UserDTO> register(@RequestBody UserRequestDTO user) {
         return ResponseEntity.ok(userService.addUser(user));
     }
