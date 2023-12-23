@@ -1,8 +1,6 @@
 package ba.edu.ibu.cardshard.rest.controllers;
 
-import ba.edu.ibu.cardshard.core.model.Deck;
 import ba.edu.ibu.cardshard.core.service.DeckService;
-import ba.edu.ibu.cardshard.rest.dto.CollectionDTO;
 import ba.edu.ibu.cardshard.rest.dto.DeckDTO;
 import ba.edu.ibu.cardshard.rest.dto.DeckRequestDTO;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -33,8 +31,8 @@ public class DeckController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/user/{userId}")
-    public ResponseEntity<DeckDTO> getDeckByUserId(@PathVariable String userId) {
-        return ResponseEntity.ok(deckService.getDeckByUserId(userId));
+    public ResponseEntity<List<DeckDTO>> getDecksByUserId(@PathVariable String userId) {
+        return ResponseEntity.ok(deckService.getDecksByUserId(userId));
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/card/{cardId}")
@@ -43,7 +41,7 @@ public class DeckController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/create")
-    public ResponseEntity<DeckDTO> register(@RequestBody DeckRequestDTO deck) {
+    public ResponseEntity<DeckDTO> create(@RequestBody DeckRequestDTO deck) {
         return ResponseEntity.ok(deckService.addDeck(deck));
     }
 

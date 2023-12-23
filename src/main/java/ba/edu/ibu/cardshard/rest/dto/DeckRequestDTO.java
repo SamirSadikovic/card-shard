@@ -1,7 +1,7 @@
 package ba.edu.ibu.cardshard.rest.dto;
 
 import ba.edu.ibu.cardshard.core.model.Deck;
-import ba.edu.ibu.cardshard.core.model.User;
+import ba.edu.ibu.cardshard.core.model.enums.VisibilityType;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,6 +12,7 @@ public class DeckRequestDTO {
     private ArrayList<Integer> main;
     private ArrayList<Integer> extra;
     private ArrayList<Integer> side;
+    private VisibilityType visibilityType;
 
     public DeckRequestDTO(){ }
     
@@ -21,6 +22,7 @@ public class DeckRequestDTO {
         this.main = deck.getMain();
         this.extra = deck.getExtra();
         this.side = deck.getSide();
+        this.visibilityType = deck.getVisibilityType();
     }
 
     public Deck toEntity() {
@@ -30,6 +32,7 @@ public class DeckRequestDTO {
         deck.setMain(main);
         deck.setExtra(extra);
         deck.setSide(side);
+        deck.setVisibilityType(visibilityType);
         deck.setCreationDate(new Date());
         return deck;
     }
@@ -72,5 +75,13 @@ public class DeckRequestDTO {
 
     public void setSide(ArrayList<Integer> side) {
         this.side = side;
+    }
+
+    public VisibilityType getVisibilityType() {
+        return visibilityType;
+    }
+
+    public void setVisibilityType(VisibilityType visibilityType) {
+        this.visibilityType = visibilityType;
     }
 }

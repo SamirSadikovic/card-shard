@@ -1,15 +1,11 @@
 package ba.edu.ibu.cardshard.core.model;
 
+import ba.edu.ibu.cardshard.core.model.enums.VisibilityType;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.Date;
-
-/*
-    TODO:
-     Create exceptions for deck size limit
- */
 
 @Document(collection="decks")
 public class Deck {
@@ -20,17 +16,19 @@ public class Deck {
     private ArrayList<Integer> main;
     private ArrayList<Integer> extra;
     private ArrayList<Integer> side;
+    private VisibilityType visibilityType;
     private Date creationDate;
 
     public Deck(){ }
 
-    public Deck(String id, String userId, String name, ArrayList<Integer> main, ArrayList<Integer> extra, ArrayList<Integer> side, Date creationDate) {
+    public Deck(String id, String userId, String name, ArrayList<Integer> main, ArrayList<Integer> extra, ArrayList<Integer> side, VisibilityType visibilityType, Date creationDate) {
         this.id = id;
         this.userId = userId;
         this.name = name;
         this.main = main;
         this.extra = extra;
         this.side = side;
+        this.visibilityType = visibilityType;
         this.creationDate = creationDate;
     }
 
@@ -82,9 +80,23 @@ public class Deck {
         this.side = side;
     }
 
+    public VisibilityType getVisibilityType() {
+        return visibilityType;
+    }
+
+    public void setVisibilityType(VisibilityType visibilityType) {
+        this.visibilityType = visibilityType;
+    }
+
     public Date getCreationDate() { return creationDate; }
 
     public void setCreationDate(Date creationDate) { this.creationDate = creationDate; }
+
+    public int getMainSize() { return this.main.size(); }
+
+    public int getExtraSize() { return this.extra.size(); }
+
+    public int getSideSize() { return this.side.size(); }
 
     public void addToMain(int cardId) { this.main.add(cardId); }
 

@@ -1,10 +1,8 @@
 package ba.edu.ibu.cardshard.core.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 @Document(collection="collections")
 public class Tag {

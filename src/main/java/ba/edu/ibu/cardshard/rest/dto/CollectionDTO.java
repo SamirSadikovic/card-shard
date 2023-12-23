@@ -2,22 +2,21 @@ package ba.edu.ibu.cardshard.rest.dto;
 
 import ba.edu.ibu.cardshard.core.model.CollectedCard;
 import ba.edu.ibu.cardshard.core.model.Collection;
-import ba.edu.ibu.cardshard.core.model.Tag;
+import ba.edu.ibu.cardshard.core.model.enums.VisibilityType;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class CollectionDTO {
     private String id;
     private String userId;
     private ArrayList<CollectedCard> cards;
-    private ArrayList<Tag> tags;
+    private VisibilityType visibilityType;
 
     public CollectionDTO(Collection collection) {
         this.id = collection.getId();
         this.userId = collection.getUserId();
         this.cards = collection.getCards();
-        this.tags = collection.getTags();
+        this.visibilityType = collection.getVisibilityType();
     }
 
     public String getId() {
@@ -44,11 +43,11 @@ public class CollectionDTO {
         this.cards = cards;
     }
 
-    public ArrayList<Tag> getTags() {
-        return tags;
+    public VisibilityType getVisibilityType() {
+        return visibilityType;
     }
 
-    public void setTags(ArrayList<Tag> tags) {
-        this.tags = tags;
+    public void setVisibilityType(VisibilityType visibilityType) {
+        this.visibilityType = visibilityType;
     }
 }

@@ -1,14 +1,12 @@
 package ba.edu.ibu.cardshard.core.service;
 
+import ba.edu.ibu.cardshard.core.exceptions.general.BadRequestException;
 import ba.edu.ibu.cardshard.core.exceptions.repository.ResourceNotFoundException;
-import ba.edu.ibu.cardshard.core.model.Collection;
 import ba.edu.ibu.cardshard.core.model.Deck;
-import ba.edu.ibu.cardshard.core.model.User;
 import ba.edu.ibu.cardshard.core.repository.DeckRepository;
 import ba.edu.ibu.cardshard.rest.dto.*;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,11 +37,14 @@ public class DeckService {
         return new DeckDTO(deck.get());
     }
 
-    public DeckDTO getDeckByUserId(String userId) {
-        Optional<Deck> deck = deckRepository.findByUserId(userId);
-        if (deck.isEmpty())
-            throw new ResourceNotFoundException("The deck with the given user ID does not exist.");
-        return new DeckDTO(deck.get());
+    public List<DeckDTO> getDecksByUserId(String userId) {
+        List<Deck> decks = deckRepository.findByUserId(userId);
+        if (decks.isEmpty())
+            throw new ResourceNotFoundException("There are no decks for the given user ID.");
+        return decks
+                .stream()
+                .map(DeckDTO::new)
+                .collect(toList());
     }
 
     public List<DeckDTO> getDeckByCardId(int cardId) {
@@ -64,11 +65,19 @@ public class DeckService {
 
     public DeckDTO updateDeck(String id, DeckRequestDTO payload) {
         Optional<Deck> deck = deckRepository.findById(id);
-        if (deck.isEmpty()) {
+        if (deck.isEmpty())
             throw new ResourceNotFoundException("The deck with the given ID does not exist.");
-        }
+
         Deck updatedDeck = payload.toEntity();
         updatedDeck.setId(deck.get().getId());
+
+        if (updatedDeck.getMainSize() > 60)
+            throw new BadRequestException("Maximum count for the main deck is 60");
+        else if (updatedDeck.getExtraSize() > 15)
+            throw new BadRequestException("Maximum count for the extra deck is 15");
+        else if (updatedDeck.getSideSize() > 15)
+            throw new BadRequestException("Maximum count for the side deck is 15");
+
         updatedDeck = deckRepository.save(updatedDeck);
         return new DeckDTO(updatedDeck);
     }

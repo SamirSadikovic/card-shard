@@ -1,10 +1,10 @@
 package ba.edu.ibu.cardshard.core.model;
 
+import ba.edu.ibu.cardshard.core.model.enums.VisibilityType;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 @Document(collection="collections")
 public class Collection {
@@ -12,14 +12,14 @@ public class Collection {
     private String id;
     private String userId;
     private ArrayList<CollectedCard> cards;
-    private ArrayList<Tag> tags;
+    private VisibilityType visibilityType;
 
     public Collection() { }
-    public Collection(String id, String userId, ArrayList<CollectedCard> cards, ArrayList<Tag> tags) {
+    public Collection(String id, String userId, ArrayList<CollectedCard> cards, VisibilityType visibilityType) {
         this.id = id;
         this.userId = userId;
         this.cards = cards;
-        this.tags = tags;
+        this.visibilityType = visibilityType;
     }
 
     public String getId() {
@@ -56,20 +56,12 @@ public class Collection {
 
     public int getCollectionSize() { return this.cards.size(); }
 
-    public ArrayList<Tag> getTags() {
-        return tags;
+    public VisibilityType getVisibilityType() {
+        return visibilityType;
     }
 
-    public void setTags(ArrayList<Tag> tags) {
-        this.tags = tags;
-    }
-
-    public void addTag(Tag tag) {
-        this.tags.add(tag);
-    }
-
-    public void dropTag(Tag tag) {
-        this.tags.remove(tag);
+    public void setVisibilityType(VisibilityType visibilityType) {
+        this.visibilityType = visibilityType;
     }
 
     @Override

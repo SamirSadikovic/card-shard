@@ -6,7 +6,6 @@ import ba.edu.ibu.cardshard.core.repository.CardRepository;
 import ba.edu.ibu.cardshard.rest.dto.CardDTO;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

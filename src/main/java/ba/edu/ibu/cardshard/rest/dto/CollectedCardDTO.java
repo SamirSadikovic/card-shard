@@ -1,11 +1,11 @@
-package ba.edu.ibu.cardshard.core.model;
+package ba.edu.ibu.cardshard.rest.dto;
 
-import org.springframework.data.mongodb.core.mapping.Document;
+import ba.edu.ibu.cardshard.core.model.CollectedCard;
 
 import java.util.HashSet;
 
-@Document(collection="collections")
-public class CollectedCard {
+public class CollectedCardDTO {
+
     private int id;
     private String name;
     private String setName;
@@ -15,17 +15,15 @@ public class CollectedCard {
     private Boolean sellTrade;
     private HashSet<String> tags;
 
-    public CollectedCard(){ }
-
-    public CollectedCard(int id, String name, String setName, String setCode, String setRarity, String setPrice, Boolean sellTrade, HashSet<String> tags) {
-        this.id = id;
-        this.name = name;
-        this.setName = setName;
-        this.setCode = setCode;
-        this.setRarity = setRarity;
-        this.setPrice = setPrice;
-        this.sellTrade = sellTrade;
-        this.tags = tags;
+    public CollectedCardDTO(CollectedCard collectedCard) {
+        this.id = collectedCard.getId();
+        this.name = collectedCard.getName();
+        this.setName = collectedCard.getSetName();
+        this.setCode = collectedCard.getSetCode();
+        this.setRarity = collectedCard.getSetRarity();
+        this.setPrice = collectedCard.getSetPrice();
+        this.sellTrade = collectedCard.getSellTrade();
+        this.tags = collectedCard.getTags();
     }
 
     public int getId() {
@@ -90,24 +88,5 @@ public class CollectedCard {
 
     public void setTags(HashSet<String> tags) {
         this.tags = tags;
-    }
-
-    public void addTag(String tag) {
-        this.tags.add(tag);
-    }
-
-    public void dropTag(String tag) {
-        this.tags.remove(tag);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-
-        if (!(o instanceof CollectedCard c))
-            return false;
-
-        return (this.id == c.getId() && this.setCode.equals(c.getSetCode()));
     }
 }

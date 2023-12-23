@@ -1,9 +1,5 @@
 package ba.edu.ibu.cardshard.core.exceptions;
 
-/*
-    TODO
-     Add more exceptions
- */
 public class GeneralException extends RuntimeException {
     private int httpCode = 500;
 
