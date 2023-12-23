@@ -1,15 +1,14 @@
 package ba.edu.ibu.cardshard.core.service;
 
 import ba.edu.ibu.cardshard.core.exceptions.repository.ResourceNotFoundException;
+import ba.edu.ibu.cardshard.core.model.Collection;
 import ba.edu.ibu.cardshard.core.model.Deck;
 import ba.edu.ibu.cardshard.core.model.User;
 import ba.edu.ibu.cardshard.core.repository.DeckRepository;
-import ba.edu.ibu.cardshard.rest.dto.DeckDTO;
-import ba.edu.ibu.cardshard.rest.dto.DeckRequestDTO;
-import ba.edu.ibu.cardshard.rest.dto.UserDTO;
-import ba.edu.ibu.cardshard.rest.dto.UserRequestDTO;
+import ba.edu.ibu.cardshard.rest.dto.*;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,6 +37,24 @@ public class DeckService {
             throw new ResourceNotFoundException("The deck with the given ID does not exist.");
         }
         return new DeckDTO(deck.get());
+    }
+
+    public DeckDTO getDeckByUserId(String userId) {
+        Optional<Deck> deck = deckRepository.findByUserId(userId);
+        if (deck.isEmpty())
+            throw new ResourceNotFoundException("The deck with the given user ID does not exist.");
+        return new DeckDTO(deck.get());
+    }
+
+    public List<DeckDTO> getDeckByCardId(int cardId) {
+        List<Deck> decks = deckRepository.findByCard(cardId);
+        if (decks.isEmpty())
+            throw new ResourceNotFoundException("There are no decks containing that card.");
+
+        return decks
+                .stream()
+                .map(DeckDTO::new)
+                .collect(toList());
     }
 
     public DeckDTO addDeck(DeckRequestDTO payload) {

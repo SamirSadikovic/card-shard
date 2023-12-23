@@ -1,5 +1,9 @@
 package ba.edu.ibu.cardshard.core.model;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.stereotype.Component;
+
+@Document(collection="collections")
 public class CollectedCard {
     private int id;
     private String setCode;

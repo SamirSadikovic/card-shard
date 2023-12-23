@@ -3,8 +3,7 @@ package ba.edu.ibu.cardshard.core.service;
 import ba.edu.ibu.cardshard.core.model.Card;
 import ba.edu.ibu.cardshard.core.model.CardSet;
 import ba.edu.ibu.cardshard.core.repository.CardRepository;
-import net.minidev.json.JSONArray;
-import net.minidev.json.JSONObject;
+import ba.edu.ibu.cardshard.rest.dto.CardDTO;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -35,7 +34,7 @@ public class CardServiceTest {
         card.setDesc("During each of your Standby Phases, put 1 A-Counter on 1 face-up monster your opponent controls.");
         card.setRace("Continuous");
         card.setArchetype("Alien");
-        card.setImageLink("C:/Users/samir/OneDrive/Desktop/projects/card-shard/src/main/resources/card_images/large/34541863.jpg");
+        card.setImageLink("C:/Users/samir/OneDrive/Desktop/projects/card_images/large/34541863.jpg");
         CardSet set = new CardSet("Force of the Breaker", "FOTB-EN043", "Common", "1.31");
         ArrayList<CardSet> sets = new ArrayList<>();
         sets.add(set);
@@ -44,9 +43,9 @@ public class CardServiceTest {
 
         Mockito.when(cardRepository.findById(34541863)).thenReturn(Optional.of(card));
 
-        Card foundCard = cardService.getCardById(34541863);
+        CardDTO foundCard = cardService.getCardById(34541863);
         Assertions.assertThat(foundCard.getId()).isEqualTo(34541863);
-        Assertions.assertThat(foundCard.getImageLink()).isEqualTo("C:/Users/samir/OneDrive/Desktop/projects/card-shard/src/main/resources/card_images/large/34541863.jpg");
+        Assertions.assertThat(foundCard.getImageLink()).isEqualTo("C:/Users/samir/OneDrive/Desktop/projects/card_images/large/34541863.jpg");
         Assertions.assertThat(foundCard.getArchetype()).isEqualTo("Alien");
         Assertions.assertThat(foundCard.getAtk()).isEqualTo(0);
         Assertions.assertThat(foundCard.getAttribute()).isEqualTo(null);

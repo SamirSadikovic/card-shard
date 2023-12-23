@@ -6,16 +6,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-@Document
+@Document(collection="collections")
 public class Collection {
     @Id
     private String id;
     private String userId;
     private ArrayList<CollectedCard> cards;
-    private HashSet<Tag> tags;
+    private ArrayList<Tag> tags;
 
     public Collection() { }
-    public Collection(String id, String userId, ArrayList<CollectedCard> cards, HashSet<Tag> tags) {
+    public Collection(String id, String userId, ArrayList<CollectedCard> cards, ArrayList<Tag> tags) {
         this.id = id;
         this.userId = userId;
         this.cards = cards;
@@ -56,11 +56,11 @@ public class Collection {
 
     public int getCollectionSize() { return this.cards.size(); }
 
-    public HashSet<Tag> getTags() {
+    public ArrayList<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(HashSet<Tag> tags) {
+    public void setTags(ArrayList<Tag> tags) {
         this.tags = tags;
     }
 
@@ -70,5 +70,16 @@ public class Collection {
 
     public void dropTag(Tag tag) {
         this.tags.remove(tag);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+
+        if (!(o instanceof Collection c))
+            return false;
+
+        return this.id.equals(c.getId());
     }
 }

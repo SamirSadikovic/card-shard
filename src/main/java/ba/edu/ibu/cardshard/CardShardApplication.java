@@ -1,7 +1,10 @@
 package ba.edu.ibu.cardshard;
 
+import ba.edu.ibu.cardshard.core.model.enums.UserType;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.sql.SQLOutput;
 
 /*
 	TODO
@@ -10,9 +13,5 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class CardShardApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(CardShardApplication.class, args);
-	}
-
+	public static void main(String[] args) { SpringApplication.run(CardShardApplication.class, args); }
 }

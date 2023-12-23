@@ -1,16 +1,19 @@
 package ba.edu.ibu.cardshard.core.model;
 
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
+@Document(collection="collections")
 public class Tag {
     private String name;
-    private HashSet<Integer> cards;
+    private ArrayList<Integer> cards;
 
     public Tag() { }
 
-    public Tag(String name, HashSet<Integer> cards) {
+    public Tag(String name, ArrayList<Integer> cards) {
         this.name = name;
         this.cards = cards;
     }
@@ -23,11 +26,11 @@ public class Tag {
         this.name = name;
     }
 
-    public HashSet<Integer> getCards() {
+    public ArrayList<Integer> getCards() {
         return cards;
     }
 
-    public void setCards(HashSet<Integer> cards) {
+    public void setCards(ArrayList<Integer> cards) {
         this.cards = cards;
     }
 

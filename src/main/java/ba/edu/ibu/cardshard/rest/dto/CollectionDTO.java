@@ -11,7 +11,7 @@ public class CollectionDTO {
     private String id;
     private String userId;
     private ArrayList<CollectedCard> cards;
-    private HashSet<Tag> tags;
+    private ArrayList<Tag> tags;
 
     public CollectionDTO(Collection collection) {
         this.id = collection.getId();
@@ -44,11 +44,11 @@ public class CollectionDTO {
         this.cards = cards;
     }
 
-    public HashSet<Tag> getTags() {
+    public ArrayList<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(HashSet<Tag> tags) {
+    public void setTags(ArrayList<Tag> tags) {
         this.tags = tags;
     }
 }

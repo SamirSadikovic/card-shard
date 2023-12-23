@@ -6,6 +6,8 @@ public class CardSet {
     private String setRarity;
     private String setPrice;
 
+    public CardSet() { }
+
     public CardSet(String setName, String setCode, String setRarity, String setPrice) {
         this.setName = setName;
         this.setCode = setCode;
