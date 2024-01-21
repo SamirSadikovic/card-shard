@@ -53,8 +53,8 @@ const CollectionBrowser = ({ collection, activeTags, onDeleteClick }: Props) => 
   }, [filters]);
 
   const _onDeleteClick = (card: CollectedCard) => {
-    // const updatedDisplayCards = displayCards.filter(c => c !== card);
-    // setDisplayCards(updatedDisplayCards);
+    const updatedDisplayCards = displayCards.filter(c => c !== card);
+    setDisplayCards(updatedDisplayCards);
     onDeleteClick(card);
   }
 
