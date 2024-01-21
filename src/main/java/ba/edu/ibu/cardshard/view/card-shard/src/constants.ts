@@ -1,4 +1,4 @@
-export const BASE_URL = "http://localhost:8080/api";
+export const BASE_URL = "https://card-shard-server.onrender.com/api";
 
 export const defaultPreview = {
   imageLink: "../src/assets/img/card_images/large/83764719.jpg",
