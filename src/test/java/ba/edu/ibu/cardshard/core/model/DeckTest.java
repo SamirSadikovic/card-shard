@@ -1,5 +1,6 @@
 package ba.edu.ibu.cardshard.core.model;
 
+import ba.edu.ibu.cardshard.core.model.enums.VisibilityType;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -39,8 +40,8 @@ public class DeckTest {
         side2.add(86198326);
         side2.add(14261867);
 
-        testDecks[0] = new Deck("someId1", "someUserId1", "someName1", main1, extra1, side1, new Date());
-        testDecks[1] = new Deck("someId2", "someUserId2", "someName2", main2, extra2, side2, new Date());
+        testDecks[0] = new Deck("someId1", "someUserId1", "someName1", main1, extra1, side1, VisibilityType.PUBLIC, new Date());
+        testDecks[1] = new Deck("someId2", "someUserId2", "someName2", main2, extra2, side2, VisibilityType.PUBLIC, new Date());
     }
 
     @Test
