@@ -25,6 +25,7 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/cardsearch" element={<CardSearch />} />
+          <Route path="/" element={<Collections />} />
           <Route path="/collections" element={<Collections />} />
           <Route path="/addcard/:id" element={<AddCard />} />
           <Route path="/decklist" element={<DeckList />} />
