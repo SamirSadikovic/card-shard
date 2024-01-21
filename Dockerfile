@@ -3,7 +3,7 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 FROM openjdk:17.0.1-jdk-slim
-COPY --from=build /target/library-0.0.1-SNAPSHOT.jar library.jar
+COPY --from=build /target/card-shard-0.0.1-SNAPSHOT.jar card-shard.jar
 EXPOSE 8080
 
-ENTRYPOINT ["java","-jar","library.jar"]
+ENTRYPOINT ["java","-jar","card-shard.jar"]
