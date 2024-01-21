@@ -5,7 +5,6 @@ import useCurrentUser from "../hooks/useCurrentUser"
 import { CollectedCard } from "../utils/types"
 import useRemoveCard from "../hooks/useRemoveCard"
 import { useState } from "react"
-import axios from "axios"
 
 const Collections = () => {
   const user = useCurrentUser();

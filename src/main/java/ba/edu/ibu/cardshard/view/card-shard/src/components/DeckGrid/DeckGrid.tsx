@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { Deck } from "../../utils/types"
 import { Card } from "../../utils/types"
 import CardObject from "../CardObject"

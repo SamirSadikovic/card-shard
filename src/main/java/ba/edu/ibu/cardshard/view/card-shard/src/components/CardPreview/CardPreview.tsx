@@ -1,5 +1,3 @@
-import { Card } from "../../utils/types"
-
 type Props = {
    card: {
     imageLink: string,

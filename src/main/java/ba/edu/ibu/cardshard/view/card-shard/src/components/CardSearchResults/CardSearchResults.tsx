@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { Card, CardPreview } from "../../utils/types"
+import { Card } from "../../utils/types"
 import { Link } from "react-router-dom";
 
 type Props = {

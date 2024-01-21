@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from "react-redux"
 import { RootState, AppDispatch } from "../store"
 import { registerUser } from "../store/authSlice"
 import { useEffect } from "react"
-import toast, { Toaster } from 'react-hot-toast';
 
 export type RegisterFormData = {
     firstName: string,

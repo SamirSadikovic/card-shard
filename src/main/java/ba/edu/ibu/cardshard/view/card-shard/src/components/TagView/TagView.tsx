@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import useTags from "../../hooks/useTags";
 import { Collection } from "../../utils/types"
 

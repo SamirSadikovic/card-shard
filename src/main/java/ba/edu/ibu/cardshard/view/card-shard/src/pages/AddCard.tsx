@@ -4,8 +4,6 @@ import useCurrentUser from "../hooks/useCurrentUser";
 import { useLayoutEffect, useState } from "react";
 import useCardById from "../hooks/useCardById";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup"
-import * as yup from "yup"
 import CardPreview from "../components/CardPreview";
 import useAddCard from "../hooks/useAddCard";
 import { CardSet } from "../utils/types";
@@ -52,11 +50,6 @@ const AddCard = () => {
     }, [card]);
 
     const onSetChange = (setCode: string) => {
-        const sets = cardSets?.filter(s => s.setCode === setCode);
-        setRarities(sets?.map(s => s.setRarity)!);
-    }
-
-    const onSetLoad = (setCode: string) => {
         const sets = cardSets?.filter(s => s.setCode === setCode);
         setRarities(sets?.map(s => s.setRarity)!);
     }

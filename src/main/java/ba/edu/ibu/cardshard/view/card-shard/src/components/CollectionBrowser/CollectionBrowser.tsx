@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useLayoutEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { CollectedCard, Collection } from "../../utils/types"
 import useCardsByIds from '../../hooks/useCardsByIds';
 

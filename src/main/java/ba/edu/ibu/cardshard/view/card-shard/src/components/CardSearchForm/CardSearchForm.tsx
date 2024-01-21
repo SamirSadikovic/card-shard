@@ -1,4 +1,3 @@
-import { MouseEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 type Props = {
