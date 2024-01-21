@@ -1,21 +1,25 @@
 package ba.edu.ibu.cardshard.core.service;
 
 import ba.edu.ibu.cardshard.core.exceptions.repository.ResourceNotFoundException;
+import ba.edu.ibu.cardshard.core.model.Collection;
 import ba.edu.ibu.cardshard.core.model.User;
+import ba.edu.ibu.cardshard.core.model.enums.UserType;
+import ba.edu.ibu.cardshard.core.model.enums.VisibilityType;
+import ba.edu.ibu.cardshard.core.repository.CollectionRepository;
 import ba.edu.ibu.cardshard.core.repository.UserRepository;
-import ba.edu.ibu.cardshard.rest.dto.LoginDTO;
-import ba.edu.ibu.cardshard.rest.dto.LoginRequestDTO;
-import ba.edu.ibu.cardshard.rest.dto.UserDTO;
-import ba.edu.ibu.cardshard.rest.dto.UserRequestDTO;
+import ba.edu.ibu.cardshard.rest.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class AuthService {
     private final UserRepository userRepository;
+    private final CollectionRepository collectionRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -26,15 +30,24 @@ public class AuthService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    public AuthService(UserRepository userRepository) {
+    public AuthService(UserRepository userRepository, CollectionRepository collectionRepository) {
         this.userRepository = userRepository;
+        this.collectionRepository = collectionRepository;
     }
 
     public UserDTO signUp(UserRequestDTO userRequestDTO) {
         userRequestDTO.setPassword(
                 passwordEncoder.encode(userRequestDTO.getPassword())
         );
+        userRequestDTO.setUserType(UserType.COLLECTOR);
         User user = userRepository.save(userRequestDTO.toEntity());
+
+        //create new collection for a newly registered user
+        Collection collection = new Collection();
+        collection.setUserId(user.getId());
+        collection.setCards(new ArrayList<>());
+        collection.setVisibilityType(VisibilityType.PUBLIC);
+        collectionRepository.save(new CollectionRequestDTO(collection).toEntity());
 
         return new UserDTO(user);
     }

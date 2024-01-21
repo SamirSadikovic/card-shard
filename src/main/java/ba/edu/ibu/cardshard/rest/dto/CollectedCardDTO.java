@@ -5,49 +5,28 @@ import ba.edu.ibu.cardshard.core.model.CollectedCard;
 import java.util.HashSet;
 
 public class CollectedCardDTO {
-
-    private int id;
-    private String name;
-    private String setName;
+    private int cardId;
     private String setCode;
     private String setRarity;
-    private String setPrice;
+    private int quantity;
     private Boolean sellTrade;
     private HashSet<String> tags;
 
     public CollectedCardDTO(CollectedCard collectedCard) {
-        this.id = collectedCard.getId();
-        this.name = collectedCard.getName();
-        this.setName = collectedCard.getSetName();
-        this.setCode = collectedCard.getSetCode();
-        this.setRarity = collectedCard.getSetRarity();
-        this.setPrice = collectedCard.getSetPrice();
+        this.cardId = collectedCard.getId().getCardId();
+        this.setCode = collectedCard.getId().getSetCode();
+        this.setRarity = collectedCard.getId().getSetRarity();
+        this.quantity = collectedCard.getQuantity();
         this.sellTrade = collectedCard.getSellTrade();
         this.tags = collectedCard.getTags();
     }
 
-    public int getId() {
-        return id;
+    public int getCardId() {
+        return cardId;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSetName() {
-        return setName;
-    }
-
-    public void setSetName(String setName) {
-        this.setName = setName;
+    public void setCardId(int cardId) {
+        this.cardId = cardId;
     }
 
     public String getSetCode() {
@@ -66,12 +45,12 @@ public class CollectedCardDTO {
         this.setRarity = setRarity;
     }
 
-    public String getSetPrice() {
-        return setPrice;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setSetPrice(String setPrice) {
-        this.setPrice = setPrice;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public Boolean getSellTrade() {

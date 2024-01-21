@@ -24,7 +24,6 @@ public class MainSocketHandler implements WebSocketHandler {
         this.userService = userService;
     }
 
-
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         User user = getUser(session);

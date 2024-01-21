@@ -55,6 +55,6 @@ public class CardSet {
         if (!(o instanceof CardSet c))
             return false;
 
-        return this.setName.equals(c.getSetName());
+        return this.setCode.equals(c.getSetCode());
     }
 }

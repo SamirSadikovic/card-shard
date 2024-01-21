@@ -8,12 +8,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CollectedCardRepository extends MongoRepository<CollectedCard, Integer> {
+public interface CollectedCardRepository extends MongoRepository<CollectedCard, CollectedCard.CollectedCardId> {
 
     @Aggregation(pipeline = """
             { $match: { 'userId': '?0', 'cards.sellTrade': true } },
-            { $unwind: { path: '$cards' } },
-            { $project: { _id: 0, tags: 0, userId: 0 } }
+            { $unwind: { path: '$cards' } }
     """)
     List<CollectedCard> findTradesByUserId(String userId);
 }

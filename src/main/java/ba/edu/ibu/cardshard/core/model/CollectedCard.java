@@ -6,74 +6,37 @@ import java.util.HashSet;
 
 @Document(collection="collections")
 public class CollectedCard {
-    private int id;
-    private String name;
-    private String setName;
-    private String setCode;
-    private String setRarity;
-    private String setPrice;
+    private CollectedCardId id;
+    private int quantity;
     private Boolean sellTrade;
     private HashSet<String> tags;
 
     public CollectedCard(){ }
 
-    public CollectedCard(int id, String name, String setName, String setCode, String setRarity, String setPrice, Boolean sellTrade, HashSet<String> tags) {
-        this.id = id;
-        this.name = name;
-        this.setName = setName;
-        this.setCode = setCode;
-        this.setRarity = setRarity;
-        this.setPrice = setPrice;
+    public CollectedCard(int cardId, String setCode, String setRarity, int quantity, Boolean sellTrade, HashSet<String> tags) {
+        this.id = new CollectedCardId(cardId, setCode, setRarity);
+        this.quantity = quantity;
         this.sellTrade = sellTrade;
         this.tags = tags;
     }
 
-    public int getId() {
-        return id;
+    public void updateCard(CollectedCard newCard) {
+        this.id = newCard.getId();
+        this.quantity = newCard.getQuantity();
+        this.sellTrade = newCard.getSellTrade();
+        this.tags = newCard.getTags();
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public CollectedCardId getId() { return id; }
+
+    public void setId(CollectedCardId id) { this.id = id; }
+
+    public int getQuantity() {
+        return quantity;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSetName() {
-        return setName;
-    }
-
-    public void setSetName(String setName) {
-        this.setName = setName;
-    }
-
-    public String getSetCode() {
-        return setCode;
-    }
-
-    public void setSetCode(String setCode) {
-        this.setCode = setCode;
-    }
-
-    public String getSetRarity() {
-        return setRarity;
-    }
-
-    public void setSetRarity(String setRarity) {
-        this.setRarity = setRarity;
-    }
-
-    public String getSetPrice() {
-        return setPrice;
-    }
-
-    public void setSetPrice(String setPrice) {
-        this.setPrice = setPrice;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public Boolean getSellTrade() {
@@ -108,6 +71,53 @@ public class CollectedCard {
         if (!(o instanceof CollectedCard c))
             return false;
 
-        return (this.id == c.getId() && this.setCode.equals(c.getSetCode()));
+        return (this.id.equals(c.getId()));
+    }
+
+    public static class CollectedCardId {
+        private int cardId;
+        private String setCode;
+        private String setRarity;
+
+        public CollectedCardId(int cardId, String setCode, String setRarity) {
+            this.cardId = cardId;
+            this.setCode = setCode;
+            this.setRarity = setRarity;
+        }
+
+        public int getCardId() {
+            return cardId;
+        }
+
+        public void setCardId(int cardId) {
+            this.cardId = cardId;
+        }
+
+        public String getSetCode() {
+            return setCode;
+        }
+
+        public void setSetCode(String setCode) {
+            this.setCode = setCode;
+        }
+
+        public String getSetRarity() {
+            return setRarity;
+        }
+
+        public void setSetRarity(String setRarity) {
+            this.setRarity = setRarity;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (o == this)
+                return true;
+
+            if (!(o instanceof CollectedCardId cid))
+                return false;
+
+            return (this.cardId == cid.getCardId() && this.setCode.equals(cid.getSetCode()) && this.setRarity.equals(cid.getSetRarity()));
+        }
     }
 }

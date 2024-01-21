@@ -14,7 +14,7 @@ public class CollectionRequestDTO {
     public CollectionRequestDTO() { }
 
     public CollectionRequestDTO(Collection collection) {
-        this.userId = collection.getId();
+        this.userId = collection.getUserId();
         this.cards = collection.getCards();
         this.visibilityType = collection.getVisibilityType();
     }

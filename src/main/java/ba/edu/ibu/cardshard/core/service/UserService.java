@@ -47,6 +47,13 @@ public class UserService {
         return user.get();
     }
 
+    public UserDTO getUserByUsername(String username) {
+        Optional<User> user = userRepository.findByUsernameOrEmail(username);
+        if (user.isEmpty())
+            throw new ResourceNotFoundException("The user with the given username does not exist.");
+        return new UserDTO(user.get());
+    }
+
     public UserDTO addUser(UserRequestDTO payload) {
         User user = userRepository.save(payload.toEntity());
         return new UserDTO(user);

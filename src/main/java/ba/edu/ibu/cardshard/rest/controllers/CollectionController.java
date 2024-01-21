@@ -3,19 +3,14 @@ package ba.edu.ibu.cardshard.rest.controllers;
 import ba.edu.ibu.cardshard.core.service.CollectionService;
 import ba.edu.ibu.cardshard.rest.dto.*;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-
-/*
-    TODO:
-     Implement collection privacy
-     Add trade binder functionality
-     Revise endpoints that return tags and counts
- */
 
 @RestController
 @RequestMapping("api/collections")
@@ -52,6 +47,21 @@ public class CollectionController {
         return ResponseEntity.ok(collectionService.updateCollection(id, collection));
     }
 
+    @RequestMapping(method = RequestMethod.PUT, path = "/{id}/cards/add")
+    public ResponseEntity<CollectionDTO> addCard(@PathVariable String id, @RequestBody CollectedCardRequestDTO collectedCard) {
+        return ResponseEntity.ok(collectionService.addCard(id, collectedCard));
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, path = "/{id}/cards/edit")
+    public ResponseEntity<CollectionDTO> editCard(@PathVariable String id, @RequestBody CollectedCardRequestDTO collectedCard) {
+        return ResponseEntity.ok(collectionService.editCard(id, collectedCard));
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, path = "/{id}/cards/remove")
+    public ResponseEntity<CollectionDTO> removeCard(@PathVariable String id, @RequestBody CollectedCardRequestDTO collectedCard) {
+        return ResponseEntity.ok(collectionService.removeCard(id, collectedCard));
+    }
+
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
     public ResponseEntity<Void> deleteCollection(@PathVariable String id) {
         collectionService.deleteCollection(id);
@@ -68,8 +78,8 @@ public class CollectionController {
         return ResponseEntity.ok(collectionService.getTagsByCollectionId(id));
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/{id}/tag/{tag}")
-    public ResponseEntity<List<CollectedCardDTO>> getTaggedCards(@PathVariable String id, @PathVariable String tag) {
-        return ResponseEntity.ok(collectionService.getTaggedCards(id, tag));
+    @RequestMapping(method = RequestMethod.GET, path = "/{id}/tag/{tags}")
+    public ResponseEntity<List<CollectedCardDTO>> getTaggedCards(@PathVariable String id, @PathVariable ArrayList<String> tags) {
+        return ResponseEntity.ok(collectionService.getTaggedCards(id, tags));
     }
 }
