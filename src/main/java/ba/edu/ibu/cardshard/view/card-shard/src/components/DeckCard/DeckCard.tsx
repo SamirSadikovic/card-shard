@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom"
 import { Deck } from "../../utils/types"
+import useDeleteDeck from "../../hooks/useDeleteDeck"
 
 type Props = {
     deck: Deck
 }
 
 const DeckCard = ({ deck }: Props) => {
+    const deleteDeck = useDeleteDeck(deck?.id!);
+
     return (
         <div className="m-3">
             <div className="card">
@@ -19,7 +22,7 @@ const DeckCard = ({ deck }: Props) => {
                     </p>
                     <div className="text-center">
                         <Link className="btn btn-primary text-nowrap deck-card-button m-1" to={`/deckview/${deck.id}`}>View</Link>
-                        {/* <button className="btn btn-danger text-nowrap deck-card-button m-1">Delete</button> */}
+                        <button className="btn btn-danger text-nowrap deck-card-button m-1" onClick={() => deleteDeck.mutate()}>Delete</button>
                     </div>
                 </div>
             </div>

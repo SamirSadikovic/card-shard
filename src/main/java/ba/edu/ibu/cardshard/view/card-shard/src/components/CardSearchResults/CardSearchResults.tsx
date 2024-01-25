@@ -1,19 +1,14 @@
 import { Card } from "../../utils/types"
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 
 type Props = {
   cards: Card[],
+  pageNumber: number,
   onPreviewClick: (card: Card) => void
-  // onPageNumberChange: (pageNumber: number) => void;
+  onPageNumberChange: (pageNumber: number) => void;
 }
 
-const CardSearchResults = ({ cards, onPreviewClick }: Props) => {
-  // const [pageNumber, setPageNumber] = useState(0);
-
-  // useEffect(() => {
-  //   onPageNumberChange(pageNumber);
-  // }, [pageNumber]);
-
+const CardSearchResults = ({ cards, pageNumber, onPreviewClick, onPageNumberChange }: Props) => {
   return (
     <>
       {
@@ -38,24 +33,24 @@ const CardSearchResults = ({ cards, onPreviewClick }: Props) => {
                     {card.desc.length > 50 && <div>...</div>}
                   </td>
                   <td>
-                    <Link type="button" className="btn btn-primary" to={`/addcard/${card.id}`}>Add to collection</Link></td><td>
+                    <Link type="button" className="btn btn-primary" to={`/addcard/${card.id}`}>Add to...</Link></td><td>
                     <button type="button" className="btn btn-secondary" onClick={() => onPreviewClick(card)}>Preview</button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          {/* <div className="row justify-content-center">
+          <div className="row justify-content-center">
             <div className="col-md-2">
-              <button className="btn btn-secondary mb-2 mt-2" onClick={() => setPageNumber(pageNumber - 1) } disabled={ pageNumber == 0 }>Prev</button>
+              <button className="btn btn-secondary mb-2 mt-2" onClick={() => onPageNumberChange(pageNumber - 1) } disabled={ pageNumber == 1 }>Prev</button>
             </div>
             <div className="col-md-2">
-                <div className=" mt-1 h5 text-center">{ pageNumber + 1}</div>
+                <div className=" mt-2 h5 text-center"><h3>{ pageNumber }</h3></div>
             </div>
             <div className="col-md-2">
-              <button className="btn btn-secondary mb-2 mt-2" onClick={() => setPageNumber(pageNumber + 1) } disabled={ pageNumber == 1284 }>Next</button>
+              <button className="btn btn-secondary mb-2 mt-2" onClick={() => onPageNumberChange(pageNumber + 1) } disabled={ pageNumber == 1285 }>Next</button>
             </div>
-          </div> */}
+          </div>
         </div>
       }
     </>

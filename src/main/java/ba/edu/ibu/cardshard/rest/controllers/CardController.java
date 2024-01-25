@@ -41,7 +41,7 @@ public class CardController {
         return ResponseEntity.ok(cardService.getCardByCollectedCardId(cardId, setCode));
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/filter")
+    @RequestMapping(method = RequestMethod.GET, path = "/filter/{pageNumber}")
     public ResponseEntity<List<CardDTO>> filterCards(@RequestParam String text,
                                                      @RequestParam String type,
                                                      @RequestParam String race,
@@ -53,7 +53,7 @@ public class CardController {
                                                      @RequestParam int atk,
                                                      @RequestParam int def,
                                                      @RequestParam ArrayList<String> linkMarkers,
-                                                     @RequestParam int pageNumber) {
+                                                     @PathVariable int pageNumber) {
         Query queryNew = new Query();
 
         if (!text.equals("DEFAULT"))
@@ -97,8 +97,6 @@ public class CardController {
         final PageRequest pageableRequest = PageRequest.of(pageNumber, 10);
         queryNew.with(pageableRequest);
         queryNew.with(Sort.by(Sort.Direction.ASC, "name"));
-
-        System.out.println(queryNew.getQueryObject());
 
         return ResponseEntity.ok(cardService.filterCards(queryNew));
     }

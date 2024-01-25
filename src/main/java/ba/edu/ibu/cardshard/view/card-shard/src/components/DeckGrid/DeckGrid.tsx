@@ -5,10 +5,11 @@ import CardObject from "../CardObject"
 type Props = {
   deck: Deck,
   cardInfo: Card[],
-  onCardClick: (card: Card) => void;
+  previewCardClick: (card: Card) => void,
+  deleteCardClick: (index: number, partOfDeck: string) => void
 }
 
-const DeckGrid = ({ deck, cardInfo, onCardClick }: Props) => {
+const DeckGrid = ({ deck, cardInfo, previewCardClick, deleteCardClick }: Props) => {
   return (
     <div className="container-sm container-xsm">
       <h4>Main Deck</h4>
@@ -18,7 +19,8 @@ const DeckGrid = ({ deck, cardInfo, onCardClick }: Props) => {
             <CardObject
               key={ index }
               card={ cardInfo.find(c => c.id == cardId)! }
-              handleClick={ onCardClick }
+              previewCardClick={previewCardClick}
+              deleteCardClick={() => deleteCardClick(index, "main")}
             />
           </div>
         ))}
@@ -30,7 +32,8 @@ const DeckGrid = ({ deck, cardInfo, onCardClick }: Props) => {
             <CardObject
               key={ index }
               card={ cardInfo.find(c => c.id == cardId)! }
-              handleClick={ onCardClick }
+              previewCardClick={previewCardClick}
+              deleteCardClick={() => deleteCardClick(index, "extra")}
             />
           </div>
         ))}
@@ -42,7 +45,8 @@ const DeckGrid = ({ deck, cardInfo, onCardClick }: Props) => {
             <CardObject
               key={ index }
               card={ cardInfo.find(c => c.id == cardId)! }
-              handleClick={ onCardClick }
+              previewCardClick={previewCardClick}
+              deleteCardClick={() => deleteCardClick(index, "side")}
             />
           </div>
         ))}

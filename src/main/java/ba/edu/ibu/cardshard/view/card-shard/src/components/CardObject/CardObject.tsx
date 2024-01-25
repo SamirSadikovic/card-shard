@@ -1,18 +1,31 @@
+import { MouseEvent } from "react";
 import { Card } from "../../utils/types"
 
 type Props = {
+   key: number,
    card: Card,
-   handleClick: (card: Card) => void;
+   previewCardClick: (card: Card) => void,
+   deleteCardClick: () => void,
 }
 
-const CardObject = ({ card, handleClick }: Props) => {
+const CardObject = ({ card, previewCardClick, deleteCardClick }: Props) => {
+   const handleClick = (e: MouseEvent<HTMLImageElement, globalThis.MouseEvent>) => {
+      if (e.type === 'click') {
+         previewCardClick(card);
+       } else if (e.type === 'contextmenu') {
+         e.preventDefault();
+         deleteCardClick();
+       }
+   };
+
    return (
       <img 
          src={ card.imageLink }
          className="img-fluid deck-card"
          alt={ card.name }
-         onClick={() => handleClick(card)}
-         />
+         onClick={ handleClick }
+         onContextMenu={ handleClick }
+      />
    )
 }
 

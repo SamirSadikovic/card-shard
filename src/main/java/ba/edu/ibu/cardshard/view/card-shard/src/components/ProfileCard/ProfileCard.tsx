@@ -18,7 +18,6 @@ const DeckCard = ({ user }: Props) => {
                 <div className="mb-4 pb-2">
                   <Link className="btn btn-outline-primary btn-floating m-1" to="/collections">Collection</Link>
                   <Link className="btn btn-outline-primary btn-floating m-1" to="/decks">Decks</Link>
-                  {/* <button type="button" className="btn btn-outline-primary btn-floating m-1">Wantlist</button> */}
                 </div>
               </div>
             </div>

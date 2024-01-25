@@ -6,8 +6,6 @@ type Props = {
   collection: Collection,
   activeTags: string[],
   onDeleteClick: (deletedCard: CollectedCard) => void;
-  // collectedCards: CollectedCard[],
-  // cardInfo: Card[]
 }
 
 const CollectionBrowser = ({ collection, activeTags, onDeleteClick }: Props) => {
@@ -64,7 +62,7 @@ const CollectionBrowser = ({ collection, activeTags, onDeleteClick }: Props) => 
 
   const _getPrice = (displayCard: CollectedCard) => {
     const price = cardInfo?.find(c => c.id == displayCard.id.cardId)!.cardSets.find(s => s.setCode === displayCard.id.setCode)?.setPrice;
-    return (price === "0" || price === "0.0" || price === "0.00")? "N/A" : price;
+    return (price === "0" || price === "0.0" || price === "0.00")? "N/A" : "$" + price;
   }
 
   console.log("Card IDs " + cardIds);
@@ -105,7 +103,6 @@ const CollectionBrowser = ({ collection, activeTags, onDeleteClick }: Props) => 
               {displayCards.map((displayCard, index) => (
                 <tr key={ index }>
                   <td>{ displayCard.quantity }</td>
-                  {/* <td>{ cardInfo?.find(c => c.id == displayCard.id.cardId)!.name }</td> */}
                   <td>{ _getName(displayCard) }</td>
                   <td>{ displayCard.id.setCode }</td>
                   <td>{ displayCard.id.setRarity }</td>

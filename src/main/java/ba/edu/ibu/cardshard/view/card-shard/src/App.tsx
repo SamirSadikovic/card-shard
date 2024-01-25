@@ -15,6 +15,8 @@ import "./assets/css/Decks.css"
 import "./assets/css/DeckCard.css"
 import "./assets/css/Navbar.css"
 
+import "../node_modules/bootstrap/dist/js/bootstrap.min.js";
+
 function App() {
   return (
     <>

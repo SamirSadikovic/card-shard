@@ -41,6 +41,15 @@ export type Deck =  {
     visibilityType: string;
 }
 
+export type DeckRequest =  {
+    userId: string;
+    name: string;
+    main: number[];
+    extra: number[];
+    side: number[];
+    visibilityType: string;
+}
+
 type CollectedCardId = {
     cardId: number,
     setCode: string,

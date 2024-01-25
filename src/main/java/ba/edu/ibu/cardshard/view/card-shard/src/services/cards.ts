@@ -13,8 +13,8 @@ const getCards = async (): Promise<Card[]> => {
        });
 }
 
-const filterCards = async (cardFilterParams: CardFilterFormData): Promise<Card[]> => {
-    return appAxios.get('/cards/filter', {
+const filterCards = async (cardFilterParams: CardFilterFormData, pageNumber: number): Promise<Card[]> => {
+    return appAxios.get(`/cards/filter/${pageNumber}`, {
         params: {
             text: cardFilterParams.text,
             type: cardFilterParams.type,
@@ -26,8 +26,7 @@ const filterCards = async (cardFilterParams: CardFilterFormData): Promise<Card[]
             scale: cardFilterParams.scale,
             atk: cardFilterParams.atk,
             def: cardFilterParams.def,
-            linkMarkers: cardFilterParams.linkMarkers,
-            pageNumber: cardFilterParams.pageNumber
+            linkMarkers: cardFilterParams.linkMarkers
         },
         paramsSerializer: {
             indexes: null

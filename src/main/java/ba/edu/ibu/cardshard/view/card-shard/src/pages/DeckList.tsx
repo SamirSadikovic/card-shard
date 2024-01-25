@@ -1,32 +1,57 @@
-import { useState, ChangeEvent, useLayoutEffect } from "react"
+import { useState, ChangeEvent, useEffect } from "react"
 import DeckCard from "../components/DeckCard"
 import useDecksByUser from "../hooks/useDecksByUser";
 import useCurrentUser from "../hooks/useCurrentUser";
 import axios from "axios";
+import CreateDeckDropdown from "../components/CreateDeckDropdown";
+import useCreateDeck from "../hooks/useCreateDeck";
 
 const DeckList = () => {
     const user = useCurrentUser();
     const { data: decks, isLoading, isError, error } = useDecksByUser(user.data?.id!);
     const [displayDecks, setDisplayDecks] = useState(decks);
+    const createDeck = useCreateDeck();
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         setDisplayDecks(decks);
     }, [decks]);
 
     const search = (e: ChangeEvent<HTMLInputElement>) => {
-      const filteredDecks = decks?.filter(deck => deck.name.toLowerCase().includes(e.target.value.toLowerCase()));
-      setDisplayDecks(filteredDecks);
+        const filteredDecks = decks?.filter(deck => deck.name.toLowerCase().includes(e.target.value.toLowerCase()));
+        setDisplayDecks(filteredDecks);
     }
+
     console.log(displayDecks);
     return (
-        <div className="container-md row mt-3 ms-3">
-            <div className="col-12">
-                <input
-                    type="text"
-                    className="form-control"
-                    onChange={ search }
-                    placeholder='Search decks...'
-                ></input>
+        <>
+            <div className="container-md row mt-3 ms-3">
+                <div className="col-md-2">
+                    <CreateDeckDropdown
+                        userId={user.data?.id!}
+                        onDeckSave={
+                            (createdDeck) => createDeck.mutate(createdDeck, {
+                            onError: () => {
+                                <div className="row">
+                                    <div className="col-12 col-md-3 m-3">
+                                        <div className="alert alert-danger" role="alert">
+                                            <p className="mb-0">
+                                            Something went wrong, please try again.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        })}
+                    />
+                </div>
+                <div className="col-md-10">
+                    <input
+                        type="text"
+                        className="form-control"
+                        onChange={ search }
+                        placeholder='Search decks...'
+                    ></input>
+                </div>
             </div>
             {
                 isLoading &&
@@ -60,18 +85,19 @@ const DeckList = () => {
             }
             {
                 !isLoading && displayDecks &&
-                <div className="col-3">
+                <div className="row">
                     {
                         displayDecks?.map((displayDeck, index) => (
+                            <div className="col-md-3" key={index}>
                             <DeckCard
                                 deck={displayDeck}
-                                key={index}
                             />
+                            </div>
                         ))
                     }
                 </div>
             }
-        </div>
+        </>
     )
 }
 

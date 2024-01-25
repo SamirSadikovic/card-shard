@@ -4,8 +4,11 @@ import CardSearchForm from "../components/CardSearchForm"
 import CardSearchResults from "../components/CardSearchResults"
 import CardPreview from "../components/CardPreview"
 import { defaultPreview } from "../constants"
+import { CardFilterFormData } from "../components/CardSearchForm/CardSearchForm"
 
 const CardSearch = () => {
+    const [pageNumber, setPageNumber] = useState(1);
+
     const [cardFilterParams, setCardFilterParams] = useState({
         text: "DEFAULT",
         type: "DEFAULT",
@@ -17,19 +20,17 @@ const CardSearch = () => {
         scale: -1,
         atk: -1,
         def: -1,
-        linkMarkers: ["DEFAULT"],
-        pageNumber: 0
+        linkMarkers: ["DEFAULT"]
     });
 
-    const { data: cards, isLoading, isError } = useCardFilter(cardFilterParams);
+    const { data: cards, isLoading, isError } = useCardFilter(cardFilterParams, (pageNumber-1));
     const [previewCard, setPreviewCard] = useState(defaultPreview);
 
-    // const modifyPageNumber = (pageNumber: number) =>{
-    //     const newParams = cardFilterParams;
-    //     newParams.pageNumber = pageNumber;
-    //     console.log("Page number from method " + pageNumber);
-    //     setCardFilterParams(newParams);
-    // }
+    const _updateSearchParams = (params: CardFilterFormData) => {
+        setCardFilterParams(params);
+        setPageNumber(1);
+    }
+    
     return (
         <div className="m-2">
             {
@@ -56,14 +57,16 @@ const CardSearch = () => {
                 !isLoading &&
                 <div className="row">
                     <div className="col-md-2">
-                        <CardSearchForm 
-                            onSubmit={ setCardFilterParams }
+                        <CardSearchForm
+                            onSubmit={_updateSearchParams}
                         />
                     </div>
                     <div className="col-md-8">
                         <CardSearchResults
                             cards={cards!}
-                            onPreviewClick={ setPreviewCard }
+                            pageNumber={pageNumber}
+                            onPreviewClick={setPreviewCard}
+                            onPageNumberChange={setPageNumber}
                         />
                     </div>
                     <div className="col-md-2">

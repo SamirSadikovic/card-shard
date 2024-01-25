@@ -15,8 +15,7 @@ export type CardFilterFormData = {
   scale: number,
   atk: number,
   def: number,
-  linkMarkers: any,
-  pageNumber: number
+  linkMarkers: any
 }
 
 const CardSearchForm = ({ onSubmit } : Props) => {
@@ -48,8 +47,7 @@ const CardSearchForm = ({ onSubmit } : Props) => {
       scale: data.scale? data.scale : -1,
       atk: data.atk? data.atk : -1,
       def: data.def? data.def : -1,
-      linkMarkers: linkMarkerArray,
-      pageNumber: data.pageNumber? data.pageNumber : 0
+      linkMarkers: linkMarkerArray
     }
     onSubmit(sendData);
   }
