@@ -16,8 +16,8 @@ public class UserTest {
     @BeforeAll
     static void init() {
         testUsers = new User[2];
-        testUsers[0] = new User("someId1", "Name1", "Surname1", "email1", "username1", "password1", "country1", "city1", UserType.COLLECTOR, new Date());
-        testUsers[1] = new User("someId2", "Name2", "Surname2", "email2", "username2", "password2", "country2", "city2", UserType.COLLECTOR, new Date());
+        testUsers[0] = new User("someId1", "Name1", "Surname1", "email1", "username1", "password1", "country1", "city1", "avatarLink1", UserType.COLLECTOR, new Date());
+        testUsers[1] = new User("someId2", "Name2", "Surname2", "email2", "username2", "password2", "country2", "city2", "avatarLink2", UserType.COLLECTOR, new Date());
     }
 
     @Test
@@ -40,6 +40,7 @@ public class UserTest {
         Assertions.assertThat(testUsers[0].getPassword()).isEqualTo("password1");
         Assertions.assertThat(testUsers[0].getCountry()).isEqualTo("country1");
         Assertions.assertThat(testUsers[0].getCity()).isEqualTo("city1");
+        Assertions.assertThat(testUsers[0].getAvatarLink()).isEqualTo("avatarLink1");
         Assertions.assertThat(testUsers[0].getUserType()).isEqualTo(UserType.COLLECTOR);
     }
 }
