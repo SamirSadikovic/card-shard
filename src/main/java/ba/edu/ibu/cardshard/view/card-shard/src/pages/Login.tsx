@@ -39,6 +39,10 @@ const Login = () => {
     useEffect(() => {
         if (userToken) navigate('/profile')
     }, [navigate, userToken, success])
+
+    useEffect(() => {
+        if (userToken) navigate('/profile')
+    }, [])
     
     return (
         <>

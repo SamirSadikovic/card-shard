@@ -24,11 +24,11 @@ function App() {
       <Navbar/>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/cardsearch" element={<CardSearch />} />
-          <Route path="/" element={<Collections />} />
           <Route path="/collections" element={<Collections />} />
           <Route path="/addcard/:id" element={<AddCard />} />
           <Route path="/decklist" element={<DeckList />} />
