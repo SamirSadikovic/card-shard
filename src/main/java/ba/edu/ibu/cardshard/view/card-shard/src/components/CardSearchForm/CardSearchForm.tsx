@@ -19,7 +19,7 @@ export type CardFilterFormData = {
 }
 
 const CardSearchForm = ({ onSubmit } : Props) => {
-  const { register, handleSubmit } = useForm<CardFilterFormData>();
+  const { register, handleSubmit, reset } = useForm<CardFilterFormData>();
   
   const _onSubmit = (data: CardFilterFormData) => {
     const linkMarkerArray = [
@@ -49,7 +49,13 @@ const CardSearchForm = ({ onSubmit } : Props) => {
       def: data.def? data.def : -1,
       linkMarkers: linkMarkerArray
     }
+    console.log(sendData);
     onSubmit(sendData);
+  }
+
+  const _onReset = () => {
+    console.log("on reset");
+    reset();
   }
 
   return (
@@ -261,7 +267,7 @@ const CardSearchForm = ({ onSubmit } : Props) => {
         </div>
         <div className="row">
           <button type="submit" className="btn btn-primary mb-2">Search</button>
-          <button type="reset" className="btn btn-danger mb-2">Reset</button>
+          <button className="btn btn-danger mb-2" onClick={_onReset}>Reset</button>
         </div>
       </form>
     </div>

@@ -56,57 +56,61 @@ const Registration = () => {
     
     return (
         <>
-            <div className="container-sm container-register border rounded">
-                <form className="m-2" onSubmit={handleSubmit(onSubmit)}>
-                    <h3 className="text-center">Register</h3>
-                    <hr/>
-                    <div className="row mx-auto form-outline mb-3">
-                        <div className="col-12">
-                            <input type="email" className="form-control" placeholder="Email address..." {...register("email")}/>
-                            { errors.email && <small style={{ color: "red" }}>{errors.email.message}</small> }
-                        </div>
+            <div className="vertical-center">
+                <div className="container-register border rounded m-auto">
+                    <div className="col">
+                        <h3 className="text-center mt-3">Register</h3>
+                        <hr className="mx-3"/>
+                        <form className="m-2" onSubmit={handleSubmit(onSubmit)}>
+                            <div className="row mx-auto form-outline mb-3">
+                                <div className="col-12">
+                                    <input type="email" className="form-control" placeholder="Email address..." {...register("email")}/>
+                                    { errors.email && <small style={{ color: "red" }}>{errors.email.message}</small> }
+                                </div>
+                            </div>
+                            <div className="row mx-auto form-outline mb-3">
+                                <div className="col-6">
+                                    <input type="text" className="form-control" placeholder="First Name..." {...register("firstName")}/>
+                                    { errors.firstName && <small style={{ color: "red" }}>{errors.firstName.message}</small> }
+                                </div>
+                                <div className="col-6">
+                                    <input type="text" className="form-control" placeholder="Last Name..." {...register("lastName")}/>
+                                    { errors.lastName && <small style={{ color: "red" }}>{errors.lastName.message}</small> }
+                                </div>
+                            </div>
+                            <div className="row mx-auto form-outline mb-3">
+                                <div className="col-6">
+                                    <input type="text" className="form-control" placeholder="Username..." {...register("username")}/>
+                                    { errors.username && <small style={{ color: "red" }}>{errors.username.message}</small> }
+                                </div>
+                                <div className="col-6">
+                                    <input type="password" className="form-control" placeholder="Password..." {...register("password")}/>
+                                    { errors.password && <small style={{ color: "red" }}>{errors.password.message}</small> }
+                                </div>
+                            </div>
+                            <div className="row mx-auto form-outline mb-3">
+                                <div className="col-6">
+                                    <input type="text" className="form-control" placeholder="Country..." {...register("country")}/>
+                                    { errors.country && <small style={{ color: "red" }}>{errors.country.message}</small> }
+                                </div>
+                                <div className="col-6">
+                                    <input type="text" className="form-control" placeholder="City..." {...register("city")}/>
+                                    { errors.city && <small style={{ color: "red" }}>{errors.city.message}</small> }
+                                </div>
+                            </div>
+                            <div className="row mx-auto form-outline mb-3">
+                                <div className="col-12">
+                                    <button type="submit" className="btn btn-primary" disabled={loading}>
+                                        { loading ? 'Submitting...' : 'Sign Up' }
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="row mx-auto form-outline mb-3">
+                                <div className="col-12 text-center">Already a member? <Link to="/login">Login</Link></div>
+                            </div>
+                        </form>
                     </div>
-                    <div className="row mx-auto form-outline mb-3">
-                        <div className="col-6">
-                            <input type="text" className="form-control" placeholder="First Name..." {...register("firstName")}/>
-                            { errors.firstName && <small style={{ color: "red" }}>{errors.firstName.message}</small> }
-                        </div>
-                        <div className="col-6">
-                            <input type="text" className="form-control" placeholder="Last Name..." {...register("lastName")}/>
-                            { errors.lastName && <small style={{ color: "red" }}>{errors.lastName.message}</small> }
-                        </div>
-                    </div>
-                    <div className="row mx-auto form-outline mb-3">
-                        <div className="col-6">
-                            <input type="text" className="form-control" placeholder="Username..." {...register("username")}/>
-                            { errors.username && <small style={{ color: "red" }}>{errors.username.message}</small> }
-                        </div>
-                        <div className="col-6">
-                            <input type="password" className="form-control" placeholder="Password..." {...register("password")}/>
-                            { errors.password && <small style={{ color: "red" }}>{errors.password.message}</small> }
-                        </div>
-                    </div>
-                    <div className="row mx-auto form-outline mb-3">
-                        <div className="col-6">
-                            <input type="text" className="form-control" placeholder="Country..." {...register("country")}/>
-                            { errors.country && <small style={{ color: "red" }}>{errors.country.message}</small> }
-                        </div>
-                        <div className="col-6">
-                            <input type="text" className="form-control" placeholder="City..." {...register("city")}/>
-                            { errors.city && <small style={{ color: "red" }}>{errors.city.message}</small> }
-                        </div>
-                    </div>
-                    <div className="row mx-auto form-outline mb-3">
-                        <div className="col-12">
-                            <button type="submit" className="btn btn-primary" disabled={loading}>
-                                { loading ? 'Submitting...' : 'Sign Up' }
-                            </button>
-                        </div>
-                    </div>
-                    <div className="row mx-auto form-outline mb-3">
-                        <div className="col-12 text-center">Already a member? <Link to="/login">Login</Link></div>
-                    </div>
-                </form>
+                </div>
             </div>
             {
                 error &&

@@ -17,6 +17,12 @@ export type Card =  {
     imageLink: string;
 }
 
+export type CardFilterResponse = {
+    cards: Card[];
+    totalPages: number;
+    currentPage: number;
+}
+
 export type CardSet = {
     setName: string;
     setCode: string;
@@ -76,6 +82,7 @@ export type User =  {
     email: string;
     username: string;
     address: string;
+    avatarLink: string;
     creationDate: Date;
     userType: string;
 }

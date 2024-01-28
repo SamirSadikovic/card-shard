@@ -1,0 +1,9 @@
+.create-deck-button {
+    padding: 10px 15px !important;
+}
+
+.create-deck-accordion {
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}

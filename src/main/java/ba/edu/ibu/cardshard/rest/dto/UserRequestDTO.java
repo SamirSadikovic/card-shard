@@ -3,7 +3,9 @@ package ba.edu.ibu.cardshard.rest.dto;
 import ba.edu.ibu.cardshard.core.model.User;
 import ba.edu.ibu.cardshard.core.model.enums.UserType;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class UserRequestDTO {
     private String firstName;
@@ -37,6 +39,7 @@ public class UserRequestDTO {
         user.setPassword(password);
         user.setCountry(country);
         user.setCity(city);
+        user.setAvatarLink(generateAvatar(username));
         user.setUserType(userType);
         user.setCreationDate(new Date());
         return user;
@@ -104,5 +107,10 @@ public class UserRequestDTO {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    private String generateAvatar(String username) {
+        int rotateValue = ThreadLocalRandom.current().nextInt(0, 360);
+        return "https://api.dicebear.com/7.x/rings/svg?seed=" + username + "&rotate=" + rotateValue + "&scale=180";
     }
 }

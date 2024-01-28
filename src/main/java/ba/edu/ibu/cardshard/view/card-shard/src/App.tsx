@@ -6,7 +6,6 @@ import ProtectedRoute from "./utils/ProtectedRoute"
 import "./assets/css/CardPreview.css"
 import "./assets/css/CardObject.css"
 import "./assets/css/DeckGrid.css"
-import "./assets/css/SearchResults.css"
 import "./assets/css/CardSearchForm.css"
 import "./assets/css/TagView.css"
 import "./assets/css/Login.css"
@@ -14,6 +13,8 @@ import "./assets/css/Register.css"
 import "./assets/css/Decks.css"
 import "./assets/css/DeckCard.css"
 import "./assets/css/Navbar.css"
+import "./assets/css/CreateDeckDropdown.css"
+import "./assets/css/Profile.css"
 
 import "../node_modules/bootstrap/dist/js/bootstrap.min.js";
 

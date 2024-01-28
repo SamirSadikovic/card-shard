@@ -39,8 +39,6 @@ public class DeckService {
 
     public List<DeckDTO> getDecksByUserId(String userId) {
         List<Deck> decks = deckRepository.findByUserId(userId);
-        if (decks.isEmpty())
-            throw new ResourceNotFoundException("There are no decks for the given user ID.");
         return decks
                 .stream()
                 .map(DeckDTO::new)

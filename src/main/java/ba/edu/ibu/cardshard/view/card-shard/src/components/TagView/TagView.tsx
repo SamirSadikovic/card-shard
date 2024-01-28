@@ -63,11 +63,7 @@ const TagView = ({ collection, tagChange }: Props) => {
         !isLoading && tags?.length == 0 &&
         <div className="row justify-content-center">
             <div className="col-12">
-                <div className="alert" role="alert">
-                    <p className="mb-0 text-center">
-                        No tags
-                    </p>
-                </div>
+              <p className="text-center text-muted">No tags</p>
             </div>
         </div>
       }

@@ -1,5 +1,5 @@
 import appAxios from "./appAxios";
-import { Card } from "../utils/types";
+import { Card, CardFilterResponse } from "../utils/types";
 import { CardFilterFormData } from "../components/CardSearchForm/CardSearchForm";
 
 
@@ -13,8 +13,8 @@ const getCards = async (): Promise<Card[]> => {
        });
 }
 
-const filterCards = async (cardFilterParams: CardFilterFormData, pageNumber: number): Promise<Card[]> => {
-    return appAxios.get(`/cards/filter/${pageNumber}`, {
+const filterCards = async (cardFilterParams: CardFilterFormData, pageNumber: number, cardsPerPage: number): Promise<CardFilterResponse> => {
+    return appAxios.get(`/cards/filter/${pageNumber}/${cardsPerPage}`, {
         params: {
             text: cardFilterParams.text,
             type: cardFilterParams.type,

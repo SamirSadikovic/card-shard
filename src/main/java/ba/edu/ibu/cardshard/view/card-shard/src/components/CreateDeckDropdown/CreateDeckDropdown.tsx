@@ -37,10 +37,10 @@ const DeckCard = ({ userId, onDeckSave }: Props) => {
 
     return (
         <>
-            <div className="accordion" id="createDeckAccordion">
+            <div className="create-deck-accordion accordion" id="createDeckAccordion">
                 <div className="accordion-item">
                     <h2 className="accordion-header" id="headingOne">
-                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#createDeckForm" aria-expanded="true" aria-controls="createDeckForm">
+                        <button className="create-deck-button accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#createDeckForm" aria-expanded="true" aria-controls="createDeckForm">
                         Create Deck
                         </button>
                     </h2>

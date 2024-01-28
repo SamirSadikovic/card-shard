@@ -8,53 +8,45 @@ const Navbar = () => {
     const dispatch = useDispatch();
 
     return (
-        <nav className="navbar navbar-expand-sm navbar-light bg-light">
-            <div className="container-fluid">
-                <Link className="navbar-brand" to="/collections">Card-Shard</Link>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav">
-                        <li className="nav-item border-start">
-                            <Link className="nav-custom nav-link" to="/collections">Collection</Link>
-                        </li>
-                        <li className="nav-item border-start">
-                            <Link className="nav-custom nav-link" to="/decklist">Decks</Link>
-                        </li>
-                        <li className="nav-item border-start">
-                            <Link className="nav-custom nav-link" to="/cardsearch">Card Search</Link>
-                        </li>
-                        <li className="nav-item border-start">
-                            <Link className="nav-custom nav-link" to="/profile">Profile</Link>
-                        </li>
-                        {
-                            !userToken ? (
-                                <>
+        <>
+            {
+                userToken ? (
+                    <nav className="navbar navbar-expand-sm navbar-light bg-light navbar-inverse">
+                        <div className="container-fluid">
+                            <Link className="navbar-brand" to="/collections">Card-Shard</Link>
+                            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                <span className="navbar-toggler-icon"></span>
+                            </button>
+                            <div className="collapse navbar-collapse" id="navbarNav">
+                                <ul className="navbar-nav">
                                     <li className="nav-item border-start">
-                                        <Link className="nav-custom nav-link" to="/login">Login</Link>
+                                        <Link className="nav-custom nav-link" to="/collections">Collection</Link>
                                     </li>
-                                    <li className="nav-item border-start border-end">
-                                        <Link className="nav-custom nav-link" to="/registration">Register</Link>
+                                    <li className="nav-item border-start">
+                                        <Link className="nav-custom nav-link" to="/decklist">Decks</Link>
                                     </li>
-                                </>
-                            ) : (
+                                    <li className="nav-item border-start">
+                                        <Link className="nav-custom nav-link" to="/cardsearch">Card Search</Link>
+                                    </li>
+                                    <li className="nav-item border-start">
+                                        <Link className="nav-custom nav-link" to="/profile">Profile</Link>
+                                    </li>
                                     <li className="nav-item border-start border-end">
                                         <Link
                                             className="nav-custom nav-link" 
                                             style={{ color: "red"}}
                                             onClick={() => dispatch(logout())}
                                             to="/login"
-                                        >
-                                            Logout
+                                        >Logout
                                         </Link>
                                     </li>
-                            )
-                        }
-                    </ul>
-                </div>
-            </div>
-        </nav>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                ) : (<></>)
+            }
+        </>
     )
 }
 

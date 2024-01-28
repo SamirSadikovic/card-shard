@@ -4,8 +4,11 @@ import ba.edu.ibu.cardshard.core.exceptions.repository.ResourceNotFoundException
 import ba.edu.ibu.cardshard.core.model.Card;
 import ba.edu.ibu.cardshard.core.repository.CardRepository;
 import ba.edu.ibu.cardshard.rest.dto.CardDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -65,11 +68,12 @@ public class CardService {
         return new CardDTO(card.get());
     }
 
-    public List<CardDTO> filterCards(Query query) {
-        List<Card> cards = mongoTemplate.find(query, Card.class);
-        return cards
-                .stream()
-                .map(CardDTO::new)
-                .collect(toList());
+    public Page<Card> filterCards(Query query, Pageable pageable) {
+        List<Card> cardList = mongoTemplate.find(query, Card.class);
+
+        return PageableExecutionUtils.getPage(
+                cardList,
+                pageable,
+                () -> mongoTemplate.count(query.skip(-1).limit(-1), Card.class));
     }
 }

@@ -1,7 +1,15 @@
 .container-login {
-    max-width: 400px !important;
+    width: 400px !important;
 }
 
 .btn {
     width: 100% !important;
+}
+
+.vertical-center {
+    min-height: 100%;
+    min-height: 100vh;
+  
+    display: flex;
+    align-items: center;
 }

@@ -22,12 +22,13 @@ public class User implements UserDetails {
     private String password;
     private String country;
     private String city;
+    private String avatarLink;
     private UserType userType;
     private Date creationDate;
 
     public User(){ }
 
-    public User(String id, String firstName, String lastName, String email, String username, String password, String country, String city, UserType userType, Date creationDate) {
+    public User(String id, String firstName, String lastName, String email, String username, String password, String country, String city, String avatarLink, UserType userType, Date creationDate) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -35,6 +36,7 @@ public class User implements UserDetails {
         this.username = username;
         this.password = password;
         this.country = country;
+        this.avatarLink = avatarLink;
         this.city = city;
         this.userType = userType;
         this.creationDate = creationDate;
@@ -88,6 +90,14 @@ public class User implements UserDetails {
 
     public String getCountry() {
         return country;
+    }
+
+    public String getAvatarLink() {
+        return avatarLink;
+    }
+
+    public void setAvatarLink(String avatarLink) {
+        this.avatarLink = avatarLink;
     }
 
     public void setCountry(String country) {

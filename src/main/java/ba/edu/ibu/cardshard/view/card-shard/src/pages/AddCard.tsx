@@ -1,4 +1,3 @@
-import { useNavigate, useParams } from "react-router-dom";
 import useCollections from "../hooks/useCollections";
 import useCurrentUser from "../hooks/useCurrentUser";
 import { useLayoutEffect, useState } from "react";
@@ -11,6 +10,8 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import useDecksByUser from "../hooks/useDecksByUser";
 import useUpdateDeck from "../hooks/useUpdateDeck";
+import toast, { Toaster } from 'react-hot-toast';
+import { useParams } from "react-router-dom";
 
 export type CollectionCardAddFormData = {
     setCode: string,
@@ -88,11 +89,10 @@ const schemaDecks = yup
 
 const AddCard = () => {
     const cardId = Number(useParams().id);
-    const user = useCurrentUser();
-    const navigate = useNavigate()
+    const { data: user } = useCurrentUser();
 
-    const { data: collection, isLoading: isLoadingCollections, isError: isErrorCollections } = useCollections(user.data?.id!);
-    const { data: decks, isLoading: isLoadingDecks, isError: isErrorDecks } = useDecksByUser(user.data?.id!);
+    const { data: collection, isLoading: isLoadingCollections, isError: isErrorCollections } = useCollections(user?.id!);
+    const { data: decks, isLoading: isLoadingDecks, isError: isErrorDecks } = useDecksByUser(user?.id!);
     const { data: card } = useCardById(cardId);
 
     const [rarities, setRarities] = useState<string[]>();
@@ -133,7 +133,12 @@ const AddCard = () => {
 
         addCard.mutate(collectedCard, {
             onSuccess: () => {
-                navigate('/cardsearch');
+                toast.success(
+                    `Successfully added ${card?.name} to collection!`,
+                    {
+                        duration: 3000
+                    }
+                );
             },
             onError: () => {
                 <div className="row">
@@ -157,7 +162,7 @@ const AddCard = () => {
 
         const updatedDeck = {
             id: deckToUpdate?.id!,
-            userId: user.data?.id!,
+            userId: user?.id!,
             name: deckToUpdate?.name!,
             main: deckToUpdate?.main!,
             extra: deckToUpdate?.extra!,
@@ -181,7 +186,12 @@ const AddCard = () => {
 
         updateDeck.mutate(updatedDeck, {
             onSuccess: () => {
-                navigate('/cardsearch');
+                toast.success(
+                    `Successfully added\n${card?.name}\nto ${updatedDeck.name}!`,
+                    {
+                        duration: 3000
+                    }
+                );
             },
             onError: () => {
                 <div className="row">
@@ -201,7 +211,7 @@ const AddCard = () => {
     }
 
     return (
-        <>
+        <div className="row m-5">
             {
                 // Loading data
                 isLoadingCollections && isLoadingDecks &&
@@ -225,9 +235,10 @@ const AddCard = () => {
             {
                 // If not loading, and not error, show data
                 !isLoadingCollections && !isLoadingDecks && card &&
-                <div className="row container-md mt-5 mx-auto">
-                    <div className="col-lg-4 m-auto border border-secondary rounded">
-                        <h3 className="text-center">Add to collection</h3>
+                <>
+                {/* <div className="row container-md mt-5 mx-auto"> */}
+                    <div className="col-lg-3 mx-auto">
+                        <h3 className="text-center">Collection</h3>
                         <hr/>
                         <form className="mb-2" onSubmit={handleSubmitCollection(addCardToCollection)}>
                             <div className="row">
@@ -288,8 +299,8 @@ const AddCard = () => {
                             </div>
                         </form>
                     </div>
-                    <div className="col-lg-3 m-auto border border-secondary rounded">
-                        <h3 className="text-center">Add to deck</h3>
+                    <div className="col-lg-3 mx-auto">
+                        <h3 className="text-center">Deck</h3>
                         <hr/>
                         <form className="mb-2" onSubmit={handleSubmitDeck(addCardToDeck)}>
                             <div className="row">
@@ -329,15 +340,21 @@ const AddCard = () => {
                                 </div>
                             </div>
                         </form>
+                        <Toaster
+                          position="bottom-center"
+                        />
                     </div>
-                    <div className="col-lg-4 m-auto">
+                    <div className="col-lg-2 mx-auto">
+                        <h3 className="text-center">Preview</h3>
+                        <hr/>
                         <CardPreview
                             card={card!}
                         />
                     </div>
-                </div>
+                {/* </div> */}
+                </>
             }
-        </>
+        </div>
     )
 }
 

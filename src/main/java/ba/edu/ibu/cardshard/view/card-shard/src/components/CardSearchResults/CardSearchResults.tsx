@@ -1,18 +1,48 @@
+import { useEffect, useState } from "react"
+import useCardFilter from "../../hooks/useCardFilter"
 import { Card } from "../../utils/types"
 import { Link } from "react-router-dom"
+import { CardFilterFormData } from "../CardSearchForm/CardSearchForm"
 
 type Props = {
-  cards: Card[],
-  pageNumber: number,
+  params: CardFilterFormData,
+  cardsPerPage: number,
   onPreviewClick: (card: Card) => void
-  onPageNumberChange: (pageNumber: number) => void;
 }
 
-const CardSearchResults = ({ cards, pageNumber, onPreviewClick, onPageNumberChange }: Props) => {
+const CardSearchResults = ({ params, cardsPerPage, onPreviewClick }: Props) => {
+  const [pageNumber, setPageNumber] = useState(1);
+
+  const { data: filterResponse, isLoading, isError } = useCardFilter(params, (pageNumber-1), cardsPerPage);
+  
+  useEffect(() => {
+    setPageNumber(1);
+  }, [params]);
+  
   return (
     <>
       {
-        Array.isArray(cards) &&
+          isLoading &&
+          <div className="justify-content-center text-center">
+              <div className="spinner-border text-primary" role="status">
+                  <span className="visually-hidden">Loading...</span>
+              </div>
+          </div>
+      }
+      {
+          isError &&
+          <div className="row">
+              <div className="col-12 col-md-3 m-3">
+                  <div className="alert alert-danger" role="alert">
+                      <p className="mb-0">
+                          Something went wrong, please try again.
+                      </p>
+                  </div>
+              </div>
+          </div>
+      }
+      {
+        !isLoading && Array.isArray(filterResponse?.cards) &&
         <div className="container-sm">
           <table className="table table-striped">
             <thead>
@@ -24,33 +54,35 @@ const CardSearchResults = ({ cards, pageNumber, onPreviewClick, onPageNumberChan
               </tr>
             </thead>
             <tbody>
-              {cards.map((card, index) => (
+              {filterResponse.cards.map((card, index) => (
                 <tr key={ index } style={{cursor: 'pointer'}}>
                   <td>{ card.name }</td>
                   <td>{ card.type }</td>
                   <td title={card.desc}>
                     {card.desc.substring(0, 50)}
-                    {card.desc.length > 50 && <div>...</div>}
+                    {card.desc.length > 50 && <>...</>}
                   </td>
                   <td>
-                    <Link type="button" className="btn btn-primary" to={`/addcard/${card.id}`}>Add to...</Link></td><td>
+                    <Link type="button" className="btn btn-primary" to={`/addcard/${card.id}`}>Add...</Link>
+                  </td>
+                  <td>
                     <button type="button" className="btn btn-secondary" onClick={() => onPreviewClick(card)}>Preview</button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <div className="row justify-content-center">
-            <div className="col-md-2">
-              <button className="btn btn-secondary mb-2 mt-2" onClick={() => onPageNumberChange(pageNumber - 1) } disabled={ pageNumber == 1 }>Prev</button>
-            </div>
-            <div className="col-md-2">
-                <div className=" mt-2 h5 text-center"><h3>{ pageNumber }</h3></div>
-            </div>
-            <div className="col-md-2">
-              <button className="btn btn-secondary mb-2 mt-2" onClick={() => onPageNumberChange(pageNumber + 1) } disabled={ pageNumber == 1285 }>Next</button>
-            </div>
-          </div>
+          <nav>
+            <ul className="pagination justify-content-center">
+              <li className="page-item">
+                <button className="btn btn-secondary" onClick={() => setPageNumber(pageNumber - 1) } disabled={ pageNumber == 1 }>Prev</button>
+              </li>
+              <li className="page-item"><a className="page-link ps-3 pe-3">Page { filterResponse.currentPage + 1} / { filterResponse.totalPages }</a></li>
+              <li className="page-item">
+                <button className="btn btn-secondary" onClick={() => setPageNumber(pageNumber + 1) } disabled={ pageNumber == filterResponse.totalPages }>Next</button>
+              </li>
+            </ul>
+          </nav>
         </div>
       }
     </>

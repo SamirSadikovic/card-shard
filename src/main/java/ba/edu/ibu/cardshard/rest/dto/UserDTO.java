@@ -11,6 +11,7 @@ public class UserDTO {
     private String email;
     private String username;
     private String address;
+    private String avatarLink;
     private Date creationDate;
     private UserType userType;
 
@@ -20,6 +21,7 @@ public class UserDTO {
         this.email = user.getEmail();
         this.username = user.getUsername();
         this.address = user.getCity() + ", " + user.getCountry();
+        this.avatarLink = user.getAvatarLink();
         this.creationDate = user.getCreationDate();
         this.userType = user.getUserType();
     }
@@ -60,6 +62,14 @@ public class UserDTO {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getAvatarLink() {
+        return avatarLink;
+    }
+
+    public void setAvatarLink(String avatarLink) {
+        this.avatarLink = avatarLink;
     }
 
     public Date getCreationDate() {

@@ -1,7 +1,15 @@
 .container-register {
-    max-width: 600px !important;
+    width: 600px !important;
 }
 
 .btn {
     width: 100% !important;
+}
+
+.vertical-center {
+    min-height: 100%;
+    min-height: 100vh;
+  
+    display: flex;
+    align-items: center;
 }

@@ -1,8 +1,11 @@
 package ba.edu.ibu.cardshard.rest.controllers;
 
+import ba.edu.ibu.cardshard.core.model.Card;
 import ba.edu.ibu.cardshard.core.service.CardService;
 import ba.edu.ibu.cardshard.rest.dto.CardDTO;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -11,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping("api/cards")
@@ -41,8 +47,8 @@ public class CardController {
         return ResponseEntity.ok(cardService.getCardByCollectedCardId(cardId, setCode));
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/filter/{pageNumber}")
-    public ResponseEntity<List<CardDTO>> filterCards(@RequestParam String text,
+    @RequestMapping(method = RequestMethod.GET, path = "/filter/{pageNumber}/{cardsPerPage}")
+    public ResponseEntity<CardFilterResponse> filterCards(@RequestParam String text,
                                                      @RequestParam String type,
                                                      @RequestParam String race,
                                                      @RequestParam String monsterType,
@@ -53,11 +59,12 @@ public class CardController {
                                                      @RequestParam int atk,
                                                      @RequestParam int def,
                                                      @RequestParam ArrayList<String> linkMarkers,
-                                                     @PathVariable int pageNumber) {
-        Query queryNew = new Query();
+                                                     @PathVariable int pageNumber,
+                                                     @PathVariable int cardsPerPage) {
+        Query query = new Query();
 
         if (!text.equals("DEFAULT"))
-            queryNew.addCriteria(Criteria.where(null).orOperator(Criteria.where("name").regex(".*("+text+").*","i"), Criteria.where("desc").regex(".*("+text+").*", "i")));
+            query.addCriteria(Criteria.where(null).orOperator(Criteria.where("name").regex(".*("+text+").*","i"), Criteria.where("desc").regex(".*("+text+").*", "i")));
         if (!type.equals("DEFAULT")) {
             //if type is Monster, check for other monster-specific query values and use regex to find them
             if (type.equals("Monster")) {
@@ -74,30 +81,70 @@ public class CardController {
                     monsterTypeRegex += "(?=.*\\b"+mt+"\\b)";
 
                 monsterTypeRegex += ".*$";
-                queryNew.addCriteria(Criteria.where("type").regex(monsterTypeRegex));
+                query.addCriteria(Criteria.where("type").regex(monsterTypeRegex));
             } else {
-                queryNew.addCriteria(Criteria.where("type").is(type + " Card"));
+                query.addCriteria(Criteria.where("type").is(type + " Card"));
             }
         }
         if (!race.equals("DEFAULT"))
-            queryNew.addCriteria(Criteria.where("race").is(race));
+            query.addCriteria(Criteria.where("race").is(race));
         if (!attribute.equals("DEFAULT"))
-            queryNew.addCriteria(Criteria.where("attribute").is(attribute));
+            query.addCriteria(Criteria.where("attribute").is(attribute));
         if (levelRankLinkVal != -1)
-            queryNew.addCriteria(Criteria.where(null).orOperator(Criteria.where("level").is(levelRankLinkVal), Criteria.where("linkVal").is(levelRankLinkVal)));
+            query.addCriteria(Criteria.where(null).orOperator(Criteria.where("level").is(levelRankLinkVal), Criteria.where("linkVal").is(levelRankLinkVal)));
         if (scale != -1)
-            queryNew.addCriteria(Criteria.where("scale").is(scale));
+            query.addCriteria(Criteria.where("scale").is(scale));
         if (atk != -1)
-            queryNew.addCriteria(Criteria.where("atk").is(atk));
+            query.addCriteria(Criteria.where("atk").is(atk));
         if (def != -1)
-            queryNew.addCriteria(Criteria.where("def").is(def));
+            query.addCriteria(Criteria.where("def").is(def));
         if (!linkMarkers.get(0).equals("DEFAULT"))
-            queryNew.addCriteria(Criteria.where("linkMarkers").all(linkMarkers));
+            query.addCriteria(Criteria.where("linkMarkers").all(linkMarkers));
 
-        final PageRequest pageableRequest = PageRequest.of(pageNumber, 10);
-        queryNew.with(pageableRequest);
-        queryNew.with(Sort.by(Sort.Direction.ASC, "name"));
+        final PageRequest pageable = PageRequest.of(pageNumber, cardsPerPage);
 
-        return ResponseEntity.ok(cardService.filterCards(queryNew));
+        query.with(pageable);
+        query.with(Sort.by(Sort.Direction.ASC, "name"));
+        
+        Page<Card> cardPage = cardService.filterCards(query, pageable);
+
+        CardFilterResponse response = new CardFilterResponse();
+        response.setCards(cardPage.getContent());
+        response.setCurrentPage(cardPage.getNumber());
+        response.setTotalPages(cardPage.getTotalPages());
+
+        return ResponseEntity.ok(response);
+    }
+
+    private static class CardFilterResponse {
+        private List<Card> cards;
+        private int totalPages;
+        private int currentPage;
+
+        public CardFilterResponse() {}
+
+        public int getCurrentPage() {
+            return currentPage;
+        }
+
+        public void setCurrentPage(int currentPage) {
+            this.currentPage = currentPage;
+        }
+
+        public List<Card> getCards() {
+            return cards;
+        }
+
+        public void setCards(List<Card> cards) {
+            this.cards = cards;
+        }
+
+        public int getTotalPages() {
+            return totalPages;
+        }
+
+        public void setTotalPages(int totalPages) {
+            this.totalPages = totalPages;
+        }
     }
 }
