@@ -32,12 +32,11 @@ const DeckCard = ({ deck }: Props) => {
                         <li className="list-group-item">Main deck: { deck.main.length } cards</li>
                         <li className="list-group-item">Extra deck: { deck.extra.length } cards</li>
                         <li className="list-group-item mb-3">Side deck: { deck.side.length } cards</li>
-                        <li className="list-group-item">Creation date: { new Date(deck.creationDate).toDateString().substring(4) }</li>
+                        <li className="list-group-item">Date updated: { new Date(deck.creationDate).toDateString().substring(4) }</li>
                     </p>
                     <div className="text-center">
                         <Link className="btn btn-primary text-nowrap deck-card-button m-1" to={`/deckview/${deck.id}`}>View</Link>
                         <button className="btn btn-danger text-nowrap deck-card-button m-1" onClick={ showDeleteModal }>Delete</button>
-                        {/* <button className="btn btn-danger text-nowrap deck-card-button m-1" onClick={() => deleteDeck.mutate()}>Delete</button> */}
                     </div>
                 </div>
             </div>

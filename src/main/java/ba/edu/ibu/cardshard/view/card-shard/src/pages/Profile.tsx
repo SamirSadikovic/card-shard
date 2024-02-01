@@ -252,7 +252,7 @@ const Profile = () => {
                       <h6 className="mb-0">Total Collection Value</h6>
                     </div>
                     <div className="col-sm-9 text-secondary">
-                      ${_getCollectionValue()}
+                      ${_roundPrice(_getCollectionValue())}
                     </div>
                   </div>
                   <hr/>
